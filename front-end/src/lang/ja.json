@@ -1,0 +1,82 @@
+{
+    "created_at": "Ngày tạo",
+    "updated_at": "Ngày chỉnh sửa",
+    "edit": "Chỉnh sửa",
+    "language": "Ngôn ngữ",
+    "toolbar":{
+      "search": "Tìm kiếm",
+      "noti": "Thông báo",
+      "profile": "Hồ sơ cá nhân",
+      "setting": "Cài đặt",
+      "logout": "Đăng xuất",
+      "login" : "Đăng nhập",
+      "register": "Đăng ký"
+    },
+    "icon_account":{
+      "profile": "account_circle",
+      "setting": "settings",
+      "logout": "fullscreen_exit"
+    },
+    "navDrawer":{
+      "FSmartDoor": "Nhận dạng khuôn mặt",  
+      "FireDetect": "Thống báo đám cháy",
+      "PeopleCouting": "Đếm người ra vào",
+      "viewStatistic": "Xem thống kê"
+    },
+    "breadCrumb":{
+    },
+    "login":{
+      "userName": "Tên đăng nhập",
+      "pass": "Mật khẩu",
+      "login": "Đăng nhập"
+    },
+    "manageUser":{
+      "tilteFilter": "Lọc thông tin người dùng",
+      "personID": "ID nhân viên",
+      "personCode": "Mã nhân viên",
+      "fullName": "Họ tên đầy đủ",
+      "createDate": "Ngày tạo",
+      "updateDate": "Ngày cập nhật",
+      "reset": "Đặt lại",
+      "filter": "Lọc danh sách",
+      "gender": "Giới tính",
+      "male": "Nam",
+      "female": "Nữ",
+      "avatar": "Hình đại diện",
+      "mode": "Chế độ",
+      "status": "Trạng thái",
+      "append": "Bổ sung",
+      "override": "Ghi đè",
+      "register": "Đăng ký",
+      "tilteRegister": "Đăng ký người dùng",
+      "capture": "Chụp hình người dùng",
+      "title_grant_permission_user": "Chỉnh sửa quyền hạn",
+      "tilteEdit": "Chỉnh sửa thông tin",
+      "edit": "Thay đổi"
+    },
+    "manageInfoArea": {
+      "tilteFilter": "Lọc danh sách khu vực",
+      "location": "ID vị trí",
+      "floor": "Tầng",
+      "block": "Tòa nhà",
+      "position": "Vị trí",
+      "createDate": "Ngày tạo",
+      "description": "Mô tả",
+      "location_manager": "Quản lý khu vực",
+      "add_position": "Thêm vị trí",
+      "arrange": "Thứ tự",
+      "title_add": "Thêm mới",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    },
+    "manageStatistic": {
+      "tilteFilter": "Lọc thống kê",
+      "export": "Xuất file Excel"
+    },
+    "location_manager": {
+      "add_block": "Thêm tòa nhà",
+      "add_floor": "Thêm tầng",
+      "delete": "Xóa"
+    }
+  }
+  

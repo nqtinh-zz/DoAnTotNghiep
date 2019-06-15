@@ -1,0 +1,17 @@
+httplib2
+django
+django-environ
+djangorestframework
+scipy
+tensorflow==1.10.0
+djangorestframework-jwt
+mysqlclient
+dlib
+Pillow
+django-cors-headers
+six
+PyJWT
+shortuuid
+face-recognition-models
+opencv-python
+

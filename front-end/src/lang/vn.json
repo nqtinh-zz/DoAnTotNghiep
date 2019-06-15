@@ -1,0 +1,293 @@
+{
+  "created_at": "Ngày tạo",
+  "updated_at": "Ngày chỉnh sửa",
+  "edit": "Chỉnh sửa",
+  "language": "Ngôn ngữ",
+  "toolbar": {
+    "select_project": "Chọn Project",
+    "search": "Tìm kiếm",
+    "noti": "Thông báo",
+    "profile": "Hồ sơ cá nhân",
+    "setting": "Cài đặt",
+    "logout": "Đăng xuất",
+    "login" : "Đăng nhập",
+    "register": "Đăng ký",
+    "change_password": "Thay đổi mật khẩu"
+  },
+  "project": {
+    "all_project": "Tất cả Project",
+    "name_project": "Tên Project",
+    "code_project": "Mã Project",
+    "new_project": "Tạo Project "
+  },
+  "icon_account": {
+    "profile": "account_circle",
+    "setting": "settings",
+    "logout": "fullscreen_exit",
+    "change_password": "lock"
+  },
+  "navDrawer": {
+    "FSmartDoor": "Nhận dạng khuôn mặt",  
+    "FireDetect": "Thống báo đám cháy",
+    "PeopleCouting": "Đếm người ra vào",
+    "viewStatistic": "Xem thống kê"
+  },
+  "breadCrumb": {},
+  "login": {
+    "userName": "Tên đăng nhập",
+    "pass": "Mật khẩu",
+    "login": "Đăng nhập"
+  },
+  "manageUser": {
+    "tilteFilter": "Lọc thông tin người dùng",
+    "personID": "ID nhân viên",
+    "personCode": "Mã nhân viên",
+    "fullName": "Họ tên đầy đủ",
+    "createDate": "Ngày tạo",
+    "updateDate": "Ngày cập nhật",
+    "reset": "Đặt lại",
+    "filter": "Lọc danh sách",
+    "gender": "Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "avatar": "Hình đại diện",
+    "mode": "Chế độ",
+    "status": "Trạng thái",
+    "append": "Bổ sung",
+    "override": "Ghi đè",
+    "register": "Đăng ký",
+    "tilteRegister": "Đăng ký người dùng",
+    "capture": "Chụp hình người dùng",
+    "title_grant_permission_user": "Chỉnh sửa quyền hạn",
+    "tilteEdit": "Chỉnh sửa thông tin",
+    "edit": "Thay đổi"
+  },
+  "manageInfoArea": {
+    "tilteFilter": "Lọc danh sách khu vực",
+    "location": "ID vị trí",
+    "floor": "Tầng",
+    "block": "Tòa nhà",
+    "position": "Vị trí",
+    "createDate": "Ngày tạo",
+    "description": "Mô tả",
+    "location_manager": "Quản lý khu vực",
+    "add_position": "Thêm vị trí",
+    "arrange": "Thứ tự",
+    "title_add": "Thêm mới",
+    "save": "Lưu",
+    "cancel": "Hủy"
+  },
+  "manageStatistic": {
+    "tilteFilter": "Lọc thống kê",
+    "export": "Xuất file Excel"
+  },
+  "location_manager": {
+    "add_block": "Thêm tòa nhà",
+    "add_floor": "Thêm tầng",
+    "delete": "Xóa"
+  },
+  "signin":{
+    "title":"Đăng nhập để tiếp tục F.Cloud Platform",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "forgot_password": "Quên mật khẩu",
+    "create_account": "Tạo tài khoản mới",
+    "login":"Đăng nhập",
+    "signin_fail": "Sai tên đăng nhập hoặc mật khẩu",
+    "register_successfull":"Đăng ký thành công! Đăng nhập để tiếp tục",
+    "nameErrors":{
+      "most":"Tên đăng nhập tối đa 30 ký tự",
+      "least":"Tên đăng nhập tối thiểu 5 ký tự",
+      "required":"Tên đăng nhập không được để trống"
+    },
+    "passwordErrors":{
+      "least":"Mật khẩu tối thiểu 8 ký tự",
+      "required":"Mật khẩu không được để trống"
+    }
+  },
+  "signup":{
+    "title":"Đăng ký để tiếp tục đến F.Cloud Platform",
+    "first_name": "Họ",
+    "last_name":"Tên",
+    "username": "Tên đăng nhập",
+    "email":"Email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác thực",
+    "accept": "Tôi đồng ý",
+    "term_condition":"Điều kiện và Điều khoản",
+    "login":"Đăng nhập",
+    "register":"Đăng ký",
+    "agree": "Bạn phải đồng ý để tiếp tục!",
+    "nameErrors":{
+      "most":"Tên đăng nhập tối đa 30 ký tự",
+      "least":"Tên đăng nhập tối thiểu 5 ký tự",
+      "required":"Tên đăng nhập không được để trống",
+      "check_space": "Tên không được chứa khoảng trắng",
+      "username_exist":"Tên đăng nhập đã tồn tại",
+      "first_name_most":"Họ tối đa 30 ký tự",
+      "first_name_least":"Họ tối thiểu 2 ký tự",
+      "first_name_required": "Họ không được để trống",
+      "last_name_most":"Tên tối đa 30 ký tự",
+      "last_name_least":"Tên tối thiểu 2 ký tự",
+      "last_name_required": "Tên không được để trống"
+    },
+    "passwordErrors":{
+      "least":"Mật khẩu tối thiểu 8 ký tự",
+      "required":"Mật khẩu không được để trống"
+    },
+    "password_confirm_Errors":{
+      "required":"Mật khẩu xác thực không được để trống"
+    },
+    "emailErrors":{
+      "format":"Phải là email",
+      "required":"Email không được để trống",
+      "exist":"Email đã tồn tại"
+    }
+  },
+  "profile":{
+    "edit": "Chỉnh sửa thông tin ",
+    "change_avatar":"Thay đổi ảnh đại diện",
+    "username": "Tên đăng nhập",
+    "email":"Email",
+    "company": "Công ty",
+    "first_name": "Họ",
+    "last_name":"Tên",
+    "address":"Địa chỉ",
+    "update":"Cập nhật thông tin"
+  },
+  "change_password":{
+    "edit": "Thay đổi mật khẩu",
+    "password": "Mật khẩu",
+    "new_password": "Mật khẩu mới",
+    "confirm_password": "Xác nhận lại mật khẩu",
+    "wrong_password":"Mật khẩu cũ không đúng",
+    "change_password":"Thay đổi mật khẩu",
+    "passwordErrors":{
+      "least":"Mật khẩu tối thiểu 8 ký tự",
+      "required":"Mật khẩu không được để trống"
+    },
+    "password_confirm_Errors":{
+      "required":"Mật khẩu xác thực không được để trống"
+    },
+    "new_passwordErrors":{
+      "least":"Mật khẩu mới tối thiểu 8 ký tự",
+      "required":"Mật khẩu mới không được để trống"
+    }
+  },
+  "res_person":{
+    "add_person_to_group":"Thêm người vào nhóm",
+    "group":"Nhóm",
+    "choose_group":"Chọn group",
+    "cancel":"Hủy",
+    "ok":"Chấp nhận",
+    "add_person":"Thêm người",
+    "person_code":"Mã người",
+    "enter_person_code":"Nhập mã người",
+    "image":"Hình ảnh",
+    "person_code_Errors":{
+      "exits":"Mã người trùng, vui lòng nhập lại.",
+      "required":"Mã người không được để trống",
+      "check_space":"Mã người không được chứa khoảng trắng",
+      "most":"Tên đăng nhập tối đa 30 ký tự",
+      "least":"Tên đăng nhập tối thiểu 2 ký tự"
+    },
+    
+    "new_group":"Nhóm mới",
+    "import":"Thêm nhiều",
+    "import_person":"Thêm nhiều người",
+    "folder":"Thư mục",
+    "click_show_all":"Nhấn để hiển thị tất cả",
+    "edit_person":"Chỉnh sửa người",
+    "action":"Hành động",
+    "search":"Tìm kiếm",
+    "add_group":"Thêm nhóm",
+    "group_code":"Mã nhóm",
+    "group_name":"Tên nhóm",
+    "group_color":"Màu nhóm",
+    "edit_group":"Chỉnh sửa nhóm",
+    "remove_group":"Xóa nhóm"
+  },
+  "res_camera":{
+    "list_camera":"Xem danh sách Camera",
+    "add_camera":"Thêm Camera",
+    "camera_name":"Tên Camera",
+    "enter_camera_name":"Nhập tên Camera",
+    "enter_stream_url":"Nhập Stream Url",
+    "group":"Nhóm",
+    "choose_group":"Chọn group",
+    "new_group":"Nhóm mới",
+    "cancel":"Hủy",
+    "ok":"Chấp nhận",
+    "edit":"Chỉnh sửa",
+    "delete":"Xóa",
+    "check_status":"Kiểm tra trạng thái",
+    "add_camera_to_group":"Thêm Camera vào Group",
+    "submit":"Thêm",
+    "edit_camera":"Chỉnh sửa camera",
+    "camera_code_Errors":{
+      "exits":"Tên Camera trùng, vui lòng nhập lại.",
+      "required":"Tên Camera không được để trống",
+      "most":"Tên Camera tối đa 30 ký tự",
+      "check_space":"Tên Camera không được chứa khoảng trắng",
+      "least":"Tên Camera tối thiểu 2 ký tự"
+    },
+    "search":"Tìm kiếm",
+    "add_group":"Thêm nhóm",
+    "group_code":"Mã nhóm",
+    "group_name":"Tên nhóm",
+    "group_color":"Màu nhóm",
+    "edit_group":"Chỉnh sửa nhóm",
+    "remove_group":"Xóa nhóm"
+  },
+  "dashboard": {
+    "title": "Trang chủ",
+    "info_project": "Thông tin dự án",
+    "project_id" : "Mã số dự án",
+    "project_name" : "Tên dự án",
+    "project_code" : "Mã dự án",
+    "function" : "Các chức năng",
+    "function_name": "Tên chức năng"
+  },
+  "common":{
+    "fsmart_door": "Nhận diện khuôn mặt",
+    "fire_detect": "Thông báo đám cháy",
+    "people_couting": "Đếm người ra vào",
+    "link_error": "Xin lỗi, link không tồn tại",
+    "go_to_dashboard": "Đi đến trang chủ",
+    "server_error": "Xin lỗi, máy chủ không hoạt động"
+  },
+  "intro": {
+    "get_start_fcc": "Bắt đầu với F.Cloud Console",
+    "start": "Bắt đầu",
+    "main_product": "Các sản phẩm chính",
+    "company_info": "Thông tin công ty",
+    "more": "xem thêm",
+    "contact_us": "Liên hệ với chúng tôi",
+    "intro_fsmart_door": "F.SmartDoor là một hệ thống hỗ trợ cho phép vào cửa dựa vào danh tính của nhân viên bằng công nghệ nhận diện khuôn mặt. Qua đó, nó có thể giúp việc chấm công, quản lý người ra vào cửa được thực hiện thuận tiện và dễ dàng",
+    "intro_f_escape": "F.Escape là hệ thống phát hiện và cảnh báo lửa sớm ở các tòa nhà cao tầng. Nó có thể thông báo đến người dùng về các tình huống khẩn cấp khi có cháy xảy ra, cũng như giám sát vị trí nạn nhân bên trong hỏa hoạn và cung cấp thông tin về hướng thoát hiểm trong tòa nhà. ",
+    "intro_people_couting": "F.Smart People Counting là một chương trình hỗ trợ người dùng đếm số lượng người từ dữ liệu của camera tương dựa vào hình dáng.Đầu vào của chương trình sẽ là dữ liệu video, và kết quả sẽ là các thông tin về người trong video, cùng với số lượng người trong video đó. "
+  },
+  "function": {
+    "buy_now": "Mua ngay",
+    "add_function_to_project": "Bạn muốn thêm function ABC vào project",
+    "btn_add": "Thêm ",
+    "add_function": "Thêm chức năng",
+    "add_p_success": "Thêm mới project thành công",
+    "chosse_or_create": "Bạn chưa có project, vui lòng chọn hoặc tạo project",
+    "30_day": "Sử dụng 30 ngày miễn phí",
+    "cancel" : "Hủy",
+    "open" : "Chọn",
+    "project_name": "Tên project",
+    "project_code": "Mã project",
+    "name_requi": "Tên project bắt buộc",
+    "code_requi" : "Mã project bắt buộc",
+    "code_exist": "Mã project đã tồn tại",
+    "name_30ch": "Tên project tối đa 30 ký tự",
+    "name_space": "Project code không được có khoảng trắng",
+    "code_30ch": "Mã project tối đa 30 ký tự",
+    "are_you_sure": "Bạn chắc chắn muốn xóa mục đã chọn?",
+    "new_project": "Thêm mới project"
+
+  }
+
+}
