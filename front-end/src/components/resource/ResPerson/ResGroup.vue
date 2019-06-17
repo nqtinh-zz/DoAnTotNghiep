@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm12 md3 lg3 xl3>
-    <div class="v-card v-sheet theme--light" style="margin-top:2.9%;height: 100%;">
+    <div class="v-card v-sheet theme--light" style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% ">
       <v-layout row>
         <v-flex xs4 sm4 md4 lg4 xl4>
           <v-card-text style="font-size: 16px">Res Group</v-card-text>
@@ -35,18 +35,19 @@
             overflow:auto;"
         >
           <v-layout row wrap>
-            <v-layout style="margin-left:5%" v-if="search_gr===true" row wrap>
+            <v-layout  v-if="search_gr===true" row wrap>
               <v-flex xs6 sm6 md6 lg6 xl6 v-for="(item,index) in arr_search" :key="index">
                 <v-btn
                   class="click_choose"
                   :style="{ backgroundColor: item.people_group_color }"
-                  style="text-transform: none !important;color:white;height:75px; width:100%"
+                  style=" text-transform: none !important;color:white;height:75px; width:100%"
                   @contextmenu.prevent.stop="openContext($event, item)"
                 >{{item.people_group_code}}</v-btn>
+              
               </v-flex>
             </v-layout>
             <v-layout
-              style="margin-left:5%"
+              
               v-if="search_gr===false ||check_search===true"
               row
               wrap
@@ -56,7 +57,7 @@
                   <div v-if="dialog2 === true">{{check_color2}}</div>
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      style="text-transform: none !important;height:75px; color:white; width:100%"
+                      style=" text-transform: none !important;height:75px; color:white; width:100%"
                       dark
                       color="indigo"
                       @click="check_color()"
@@ -165,7 +166,7 @@
                 <v-btn
                   class="click_choose"
                   :style="{ backgroundColor: item.people_group_color }"
-                  style="text-transform: none !important;color:white;height:75px;width:100%"
+                  style=" text-transform: none !important;color:white;height:75px;width:100%"
                   @contextmenu.prevent.stop="openContext($event, item)"
                 >{{item.people_group_code}}</v-btn>
               </v-flex>

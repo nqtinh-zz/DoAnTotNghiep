@@ -573,7 +573,7 @@ class ResPeopleProcess:
     @classmethod
     def add_people_group(cls, request):
         result_group_data = cls.parse_add_people_group_data(request)
-
+        print(result_group_data)
         if result_group_data:
             check_group_exist = PeopleGroup.objects.filter(
                 project_id=result_group_data[KEY_PROJECT_ID],

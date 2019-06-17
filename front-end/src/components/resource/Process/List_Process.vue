@@ -1,7 +1,8 @@
 <template>
-  <v-container grid-list-xl>
+  <div style="margin-top:2%;width:90%">
     <v-layout row wrap justify-center class="my-0">
       <v-flex xs12 sm12 md9 lg9 xl9>
+        <div style="margin-left:3%; width:110%">
         <v-card height="100%">
           <v-card-title style="font-size: 16px">
             Process
@@ -58,9 +59,10 @@
             <Add_Process></Add_Process>
           </div>
         </v-card>
+        </div>
       </v-flex>
       <v-flex xs12 sm12 md3 lg3 xl3>
-        <div class="v-card v-sheet theme--light" style="margin-top:2.9%;height: 800px; ">
+        <div class="v-card v-sheet theme--light" style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% ">
           <v-layout row>
             <v-flex xs8 sm8 md8 lg8 xl8>
               <v-card-text style="font-size: 16px">Process Information</v-card-text>
@@ -215,7 +217,7 @@
         </v-card>
       </v-dialog>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 <script>

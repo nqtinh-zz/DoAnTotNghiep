@@ -5,7 +5,7 @@
       <v-toolbar-title class="ml-0 pl-4">{{ $t(`dashboard.title`) }}</v-toolbar-title>
     </v-toolbar>
 
-    <v-container grid-list-md text-xs-center>
+    <div style="margin-top:2%;width:100%">
       <v-flex xs12 sm10 offset-sm1>
         <v-layout row wrap>
           <!-- cot 1 -->
@@ -199,7 +199,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
-    </v-container>
+    </div>
   </div>
 </template>
 

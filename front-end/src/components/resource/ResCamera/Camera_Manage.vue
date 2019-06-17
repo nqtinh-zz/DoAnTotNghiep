@@ -1,7 +1,8 @@
 <template>
-  <v-container grid-list-xl>
+  <div style="margin-top:2%;width:90%">
     <v-layout row wrap justify-center class="my-0">
       <v-flex xs12 sm12 md9 lg9 xl9>
+        <div style="margin-left:3%; width:110%">
         <v-card height="100%">
           <v-card-title style="font-size: 16px">
             Res Camera
@@ -329,13 +330,14 @@
             </div>
           </div>
         </v-card>
+        </div>
       </v-flex>
       <!-- <v-flex xs12 sm12 md3 lg3 xl3>
          group camera asdfsa df
       </v-flex>-->
       <GroupCamera></GroupCamera>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 <script>

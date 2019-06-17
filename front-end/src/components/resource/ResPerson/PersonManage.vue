@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <v-container grid-list-xl>
-      <v-layout row wrap justify-center class="my-0">
+  <div style="margin-top:2%;width:90%">
+    <v-layout row wrap justify-center class="my-0">
+      
         <v-flex xs12 sm12 md9 lg9 xl9>
+          <div style="margin-left:3%; width:110%">
           <v-card height="100%">
             <v-card-title style="font-size: 16px">
               Res Person
@@ -119,7 +120,11 @@
                         <v-flex xs3 sm3 pt-4 style="font-size: 17px">
                           <b></b>
                         </v-flex>
-                        <v-flex xs7 sm7 style="color: red">{{$t(`res_person.person_code_Errors.exits`) }}</v-flex>&nbsp;
+                        <v-flex
+                          xs7
+                          sm7
+                          style="color: red"
+                        >{{$t(`res_person.person_code_Errors.exits`) }}</v-flex>&nbsp;
                         <v-flex xs1 sm1></v-flex>
                       </v-layout>
                       <v-layout wrap row pt-2>
@@ -213,10 +218,11 @@
               <!-- /dialog  add person-->
             </div>
           </v-card>
+          </div>
         </v-flex>
-        <ResGroup></ResGroup>
-      </v-layout>
-    </v-container>
+      
+      <ResGroup></ResGroup>
+    </v-layout>
   </div>
 </template>
 
@@ -285,8 +291,17 @@ export default {
           value: "person_code",
           sortable: false
         },
-        { text: this.$t(`res_person.group`), value: "people_group_code", sortable: false },
-        { text: this.$t(`res_person.action`), value: "action", sortable: false, width: "100px" }
+        {
+          text: this.$t(`res_person.group`),
+          value: "people_group_code",
+          sortable: false
+        },
+        {
+          text: this.$t(`res_person.action`),
+          value: "action",
+          sortable: false,
+          width: "100px"
+        }
       ]
       // desserts: []
     };
