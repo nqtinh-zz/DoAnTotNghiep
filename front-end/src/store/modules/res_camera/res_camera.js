@@ -41,14 +41,50 @@ const mutations = {
   // }
 }
 const actions = {
-  // check_list_camera({
-  //   commit
-  // }, data) {
-  //   return new Promise((resolve, reject) => {
-  //     console.log('tesst', data)
-  //     commit('check_list_camera', data)
-  //     resolve(data)
-  //   })
+  stop_camera({
+    commit
+  }, data) {
+    // console.log('data khi gui',person)
+    return new Promise((resolve, reject) => {
+      //cập nhât danh sach person mới
+      axios({
+        url: `${HTTP_API}/api/v/project/resources/turn-off-camera`,
+        params: {
+          camera_id: data
+        },
+        method: 'GET'
+      })
+        .then(resp => {
+          resolve(resp)
+        })
+        .catch(err => {
+          
+          console.log(err)
+        })
+    })
+  },
+  start_camera({
+    commit
+  }, data) {
+    // console.log('data khi gui',person)
+    return new Promise((resolve, reject) => {
+      //cập nhât danh sach person mới
+      axios({
+        url: `${HTTP_API}/api/v/project/resources/turn-on-camera`,
+        params: {
+          camera_id: data
+        },
+        method: 'GET'
+      })
+        .then(resp => {
+          resolve(resp)
+        })
+        .catch(err => {
+          
+          console.log(err)
+        })
+    })
+  },
 
 
   // },
@@ -414,6 +450,30 @@ const actions = {
               console.log(err2)
             })
           // resolve(resp)
+          console.log(resp)
+        })
+        .catch(err => {
+          
+          console.log(err)
+        })
+    })
+  },
+  camera_group_list_camera({
+    commit
+  }, data_group) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${HTTP_API}/api/v/project/resources/camera-group-list-camera`,
+        data: data_group,
+        params: {
+          group_id: data_group.group_id
+        },
+        method: 'GET'
+      })
+        .then(resp => {
+          var desserts = [...resp.data.data];
+          commit('get_all_camera_success', desserts)
+          resolve(resp)
           console.log(resp)
         })
         .catch(err => {

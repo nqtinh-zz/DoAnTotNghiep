@@ -7,6 +7,7 @@
 #  rights. So, if you accidentally receive this source code, please send an email
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
 
+
 class UserRouter:
     """
     A router to control all database operations on models in the

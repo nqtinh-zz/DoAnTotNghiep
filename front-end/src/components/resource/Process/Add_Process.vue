@@ -48,10 +48,8 @@
             </v-layout>
             <v-layout wrap row>
               <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
-              <div v-if="add_fail === true">
-                <v-flex
-                  style="margin-left: 15px; color: red"
-                >Camera name đã tồn tại, vui lòng nhập lại.</v-flex>
+              <div v-if="process_name_fail === true">
+                <v-flex style="margin-left: 15px; color: red">Process name is required</v-flex>
               </div>
               <v-flex xs1 sm1></v-flex>
             </v-layout>
@@ -64,10 +62,18 @@
                   v-bind:items="listCamera"
                   v-model="a1"
                   label="Choose Camera"
+                  
                   chips
                   persistent-hint
                 ></v-select>
               </v-flex>
+            </v-layout>
+            <v-layout wrap row>
+              <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
+              <div v-if="camera_fail === true">
+                <v-flex style="margin-left: 15px; color: red">Camera is required</v-flex>
+              </div>
+              <v-flex xs1 sm1></v-flex>
             </v-layout>
             <v-layout wrap row pt-3>
               <v-flex xs3 sm3 pt-4 style="font-size: 17px">
@@ -80,6 +86,7 @@
                   label="Choose Group"
                   item-text="people_group_code"
                   item-value="people_group_id"
+                
                   multiple
                   chips
                   persistent-hint
@@ -92,12 +99,19 @@
               </v-flex>
             </v-layout>
             <v-layout wrap row>
+              <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
+              <div v-if="people_group_fail === true">
+                <v-flex style="margin-left: 15px; color: red">People group is required</v-flex>
+              </div>
+              <v-flex xs1 sm1></v-flex>
+            </v-layout>
+            <v-layout wrap row>
               <v-flex xs3 sm3 pt-4 style="font-size: 17px">
                 <b>Process config</b>
               </v-flex>
               <v-flex xs8 class="py-0">
                 <!-- <h3 class="headline font-weight-medium ma-0">Process config</h3> -->
-                <div id="editorWrapper" style="margin-top: 15px">
+                <div id="editorWrapper" style="margin-top: 15px; height:300px">
                   <div id="editor"/>
                 </div>
               </v-flex>
@@ -140,6 +154,9 @@ export default {
   },
   data() {
     return {
+      process_name_fail: false,
+      camera_fail: false,
+      people_group_fail: false,
       dialog_add_process: false,
       process_name: "",
       camera_name: "",
@@ -202,22 +219,39 @@ export default {
         project_id: JSON.parse(localStorage.getItem("project_id"))
       };
       console.log("data add process ", data);
-      this.$store
-        .dispatch("add_process", data)
-        .then(resp => {
-          this.dialog_add_process = false;
-          this.a1 = [];
-          this.a2 = [];
-          this.process_name =[]
-          this.$v.$reset();
-          console.log("add process xong : ", resp);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.a1 == "") {
+        this.camera_fail = true;
+      }
+      if (this.a2.length == 0) {
+        this.people_group_fail = true;
+      }
+      if (this.process_name == "") {
+        this.process_name_fail = true;
+      }
+      if (this.a1 != "" && this.a2.length != 0 && this.process_name != "") {
+        this.$store
+          .dispatch("add_process", data)
+          .then(resp => {
+            this.dialog_add_process = false;
+            this.a1 = [];
+            this.a2 = [];
+            this.process_name = [];
+            this.people_group_fail = false;
+            this.process_name_fail = false;
+            this.camera_fail = false;
+            this.$v.$reset();
+            console.log("add process xong : ", resp);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     },
     close_dialog_process() {
       this.dialog_add_process = false;
+      this.people_group_fail = false;
+      this.process_name_fail = false;
+      this.camera_fail = false;
       this.a1 = [];
       this.a2 = [];
       this.$v.$reset();
@@ -244,19 +278,35 @@ export default {
       ProcessNameError() {
         const errors = [];
         if (!this.$v.process_name.$dirty) return errors;
-        !this.$v.process_name.required &&
-          errors.push("Camera name is required.");
+        // !this.$v.process_name.required &&
+        //   errors.push("Process name is required.");
         // this.fail_create === "code_fail" && errors.push("Code already exits");
         // for (let i = 0; i < this.process_name.length; i++) {
         //   if (this.process_name[i] === " ")
         //     errors.push("Person code must not have space");
         // }
         !this.$v.process_name.maxLength &&
-          errors.push("Camera name must be at most 30 characters long");
+          errors.push("Process name must be at most 30 characters long");
         !this.$v.process_name.minLength &&
-          errors.push("Camera name must be at least 2 characters long");
+          errors.push("Process name must be at least 2 characters long");
         return errors;
       },
+      // CameraError() {
+      //   const errors = [];
+      //   if (!this.$v.a1.$dirty) return errors;
+      //   !this.$v.a1.required &&
+      //     errors.push("Camera name is required.");
+
+      //   return errors;
+      // },
+      // PeopleGroupError() {
+      //   const errors = [];
+      //   if (!this.$v.a2.$dirty) return errors;
+      //   !this.$v.a2.required &&
+      //     errors.push("People group is required.");
+
+      //   return errors;
+      // },
       list_group: state => state.res_group_camera.list_group_camera,
       listGroup() {
         return this.$store.getters.Process_ListGroup;

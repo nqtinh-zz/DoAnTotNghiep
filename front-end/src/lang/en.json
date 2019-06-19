@@ -124,6 +124,7 @@
     }
   },
   "res_person":{
+    "list_perrson":"List Person",
     "add_person_to_group":"Add person to group",
     "group":"Group",
     "choose_group":"Choose group",

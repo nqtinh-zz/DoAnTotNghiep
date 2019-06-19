@@ -12,9 +12,6 @@ from django.db import models
 # Create your models here.
 
 
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
-
 MODELS_AUTO_FIELD = models.AutoField(primary_key=True)
 
 
@@ -33,11 +30,9 @@ class User(models.Model):
     is_authenticated = True
     is_anonymous = True
 
-
     class Meta:
         app_label = 'web_admin'
         db_table = 'fccm_user'
-
 
     def __str__(self):
         return self.username
@@ -51,7 +46,6 @@ class Profile(models.Model):
     address = models.CharField(max_length=200, blank=True, null=True)
     company = models.CharField(max_length=200, blank=True, null=True)
 
-
     class Meta:
         app_label = 'web_admin'
         db_table = 'fccm_profile'
@@ -61,11 +55,9 @@ class UserRole(models.Model):
     user_role_id = models.IntegerField(primary_key=True)
     user_role_description = models.CharField(max_length=45, blank=True, null=True)
 
-
     class Meta:
         app_label = 'web_admin'
         db_table = 'fccm_user_role'
-
 
     def __str__(self):
         return self.user_role_description
@@ -79,11 +71,9 @@ class UserToken(models.Model):
     expiration_date = models.DateTimeField()
     status = models.IntegerField()
 
-
     class Meta:
         app_label = 'web_admin'
         db_table = 'fccm_user_token'
-
 
     def __str__(self):
         return self.token
@@ -93,7 +83,6 @@ class XrefAvatarUser(models.Model):
     avatar_id = models.AutoField(primary_key=True)
     avatar_file = models.CharField(null=True, max_length=2083)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
-
 
     class Meta:
         app_label = 'web_admin'
@@ -110,7 +99,6 @@ class Project(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     status = models.IntegerField(null=True, blank=True)
 
-
     class Meta:
         app_label = 'fcloudserver'
         db_table = 'fccm_project'
@@ -119,7 +107,6 @@ class Project(models.Model):
 class Function(models.Model):
     function_id = models.AutoField(primary_key=True)
     function_name = models.CharField(max_length=255)
-
 
     class Meta:
         app_label = 'fcloudserver'
@@ -132,7 +119,6 @@ class ApiKey(models.Model):
     function_id = models.ForeignKey(Function, on_delete=models.CASCADE, db_column='function_id')
     api_key = models.CharField(max_length=500)
     status = models.IntegerField(null=True, blank=True)
-
 
     class Meta:
         app_label = 'fcloudserver'
@@ -147,7 +133,6 @@ class People(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-
     class Meta:
         app_label = 'fcloudserver'
         db_table = 'res_people'
@@ -160,7 +145,6 @@ class ResPeopleImage(models.Model):
     description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
 
     class Meta:
         app_label = 'fcloudserver'
@@ -177,7 +161,6 @@ class PeopleGroup(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-
     class Meta:
         app_label = 'fcloudserver'
         db_table = 'res_people_groups'
@@ -187,7 +170,6 @@ class XrefPeopleGroup(models.Model):
     person_id = models.ForeignKey(People, on_delete=models.CASCADE, db_column='person_id')
     people_group_id = models.ForeignKey(PeopleGroup, on_delete=models.CASCADE, db_column='people_group_id')
 
-
     class Meta:
         app_label = 'fcloudserver'
         db_table = 'res_people_people_groups_xrefs'
@@ -195,14 +177,14 @@ class XrefPeopleGroup(models.Model):
 
 class Camera(models.Model):
     camera_id = models.AutoField(primary_key=True)
-    camera_name = models.CharField(unique=True, max_length=32)
+    camera_name = models.CharField(max_length=32)
     stream_url = models.CharField(max_length=1000)
     access_info = models.CharField(max_length=45)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE, db_column='project_id')
     status = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
+    is_running = models.BooleanField(null=True, blank=True)
 
     class Meta:
         app_label = 'fcloudserver'
@@ -218,7 +200,6 @@ class CameraGroup(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-
     class Meta:
         app_label = 'fcloudserver'
         db_table = 'res_camera_groups'
@@ -227,7 +208,6 @@ class CameraGroup(models.Model):
 class XrefCameraGroup(models.Model):
     camera_id = models.ForeignKey(Camera, on_delete=models.CASCADE, db_column='camera_id')
     camera_group_id = models.ForeignKey(CameraGroup, on_delete=models.CASCADE, db_column='camera_group_id')
-
 
     class Meta:
         app_label = 'fcloudserver'
@@ -254,7 +234,6 @@ class Process(models.Model):
 class XrefProcessPeopleGroup(models.Model):
     process_id = models.ForeignKey(Process, on_delete=models.CASCADE, db_column='process_id')
     people_group_id = models.ForeignKey(PeopleGroup, on_delete=models.CASCADE, db_column='people_group_id')
-
 
     class Meta:
         app_label = 'fcloudserver'

@@ -14,6 +14,8 @@ import cv2
 import shortuuid
 
 from config.django_settings import STATIC_DIR, STATIC_URL
+
+
 # from config.log_config import log
 
 

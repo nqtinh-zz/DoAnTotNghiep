@@ -86,5 +86,24 @@ res_patterns = [
         'camera-group-list-camera',
         server_controller.camera_group_list_camera,
         name='camera_group_list_camera'
-    )
+),
+    path(
+        'turn-off-camera',
+        server_controller.turn_off_camera,
+        name='turn_off_camera'
+    ),
+    path(
+        'turn-on-camera',
+        server_controller.turn_on_camera,
+        name='turn_on_camera'),
+ path(
+        'people-group-list-people',
+        server_controller.people_group_list_people,
+        name='people_group_list_people'
+
+
+
+
+
+    )    
 ]

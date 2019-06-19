@@ -1,12 +1,15 @@
 <template>
-  <div style="margin-top:2%;width:90%">
-    <v-layout row wrap justify-center class="my-0">
-      
+ <div style="margin-top:2%;width:90%">
+      <v-layout row wrap justify-center class="my-0">
         <v-flex xs12 sm12 md9 lg9 xl9>
           <div style="margin-left:3%; width:110%">
           <v-card height="100%">
             <v-card-title style="font-size: 16px">
               Res Person
+              <v-btn @click="refresh_list_person" flat icon color="indigo">
+                <v-icon>cached</v-icon>
+              </v-btn>
+
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
@@ -220,9 +223,9 @@
           </v-card>
           </div>
         </v-flex>
-      
-      <ResGroup></ResGroup>
-    </v-layout>
+        <ResGroup></ResGroup>
+      </v-layout>
+ </div>
   </div>
 </template>
 
@@ -350,6 +353,19 @@ export default {
     Import_Person
   },
   methods: {
+    refresh_list_person() {
+      this.$store
+        .dispatch("get_all_people", {
+          project_id: JSON.parse(localStorage.getItem("project_id"))
+        })
+        .then(resp => {
+          // this.desserts = [...resp.data.data];
+          console.log("get all people: ", resp.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     New_Group_On_Person() {
       this.dialog4 = false;
       this.arr_group = [];

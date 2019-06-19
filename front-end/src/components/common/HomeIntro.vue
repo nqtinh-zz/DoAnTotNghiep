@@ -1,27 +1,6 @@
 <template>
   <div>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue darken-3" dark app fixed>
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <router-link style="text-decoration: none;color:white" to="/">F.Cloud Console</router-link>
-      </v-toolbar-title>&nbsp;&nbsp;&nbsp;&nbsp;
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="search"
-        :label="$t('toolbar.search')"
-        class="hidden-sm-and-down"
-      ></v-text-field>
-      <v-spacer></v-spacer>
-      <langx></langx>
-      <a href="/signup">
-        <v-btn color="primary" style="width:120px">{{$t(`toolbar.register`)}}</v-btn>
-      </a>
-      <a href="/signin">
-        <v-btn color="primary" style="width:120px">{{$t(`toolbar.login`)}}</v-btn>
-      </a>
-    </v-toolbar>
+    <Header_Intro></Header_Intro>
     <v-layout row wrap>
       <v-flex xs12>
         <v-parallax
@@ -40,7 +19,7 @@
             >{{ $t(`intro.get_start_fcc`) }}</h1>
             <!-- <div class="subheading mb-3 text-xs-center">....</div> -->
             <router-link to="/signin">
-              <a><v-btn class="blue lighten-2 mt-5" dark large >{{ $t(`intro.start`) }}</v-btn></a>
+              <v-btn style="text-decoration: none;color:white" class="blue lighten-2 mt-5" dark large >{{ $t(`intro.start`) }}</v-btn>
               <!-- class="blue lighten-2 mt-5" dark large -->
             </router-link>
           </v-layout>
@@ -181,6 +160,7 @@ import Profile from "../users/profile.vue";
 import Signin from "../users/SignIn.vue";
 import SelectProject from "../project/SelectProject.vue";
 // import AppEvents from '../../event.js'
+import Header_Intro from "./Header_Intro"
 import menu from "../../api/menu.js";
 export default {
   name: "HomeIntro",
@@ -214,25 +194,26 @@ export default {
   components: {
     Profile,
     Signin,
-    SelectProject
+    SelectProject,
+    Header_Intro
   }
 };
 </script>
 
-<style>
-@import "./favison/css/bootstrap.css";
-@import "./favison/css/themify-icons.css";
-@import "./favison/vendors/fontawesome/css/all.min.css";
-@import "./favison/vendors/owl-carousel/owl.carousel.min.css";
-@import "./favison/vendors/animate-css/animate.css";
-@import "./favison/css/style.css";
-@import "./favison/css/responsive.css";
+<style lang="scss" scoped>
+// @import "./favison/css/bootstrap.css";
+// @import "./favison/css/themify-icons.css";
+// @import "./favison/vendors/fontawesome/css/all.min.css";
+// @import "./favison/vendors/owl-carousel/owl.carousel.min.css";
+// @import "./favison/vendors/animate-css/animate.css";
+// @import "./favison/css/style.css";
+// @import "./favison/css/responsive.css";
 .v-content__wrap {
   max-width: 120%;
 }
-a {  text-decoration: none;}
-.container {
-    max-width: 1500px !important;
-}
+// a {  text-decoration: none;}
+// .container {
+//     max-width: 1500px !important;
+// }
 </style>
 

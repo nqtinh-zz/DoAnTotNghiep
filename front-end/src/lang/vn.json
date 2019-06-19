@@ -175,6 +175,7 @@
     }
   },
   "res_person":{
+    "list_perrson":"Xem danh sách người",
     "add_person_to_group":"Thêm người vào nhóm",
     "group":"Nhóm",
     "choose_group":"Chọn group",

@@ -10,11 +10,12 @@ import hashlib
 import time
 from hashlib import blake2b
 from json import JSONEncoder
+
 import jwt
 from django.contrib.auth.hashers import make_password
-from config import django_settings
+
 # from config.log_config import log
-from db_accessor.models import Project, Function, ApiKey
+from db_accessor.models import ApiKey, Function, Project
 from utils.constants import *
 from utils.result import Result
 

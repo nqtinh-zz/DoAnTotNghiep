@@ -336,6 +336,24 @@ def camera_group_list_camera(request):
                             safe=False)
 
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def people_group_list_people(request):
+    """
+        check camera url
+        :param request:
+        :return: the message is successful if the information of project , otherwise the error message.
+    """
+    result = ResPeopleProcess.people_group_list_people(request)
+    if result.is_success():
+        return JsonResponse(Resp.success(
+            message=result.get_message(),
+            data=result.get_data()).to_dict(), safe=False)
+    else:
+        return JsonResponse(Resp.error(message=result.get_message()).to_dict(),
+                            safe=False)
+
+
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def create_process(request):
@@ -444,3 +462,27 @@ def get_process(request):
 def video_feed(request):
     result = VideoCamera.livefe(request)
     return result
+
+
+@api_view(['GET'])
+def turn_off_camera(request):
+    result = ResCameraProcess.turn_off_camera(request)
+    if result.is_success():
+        return JsonResponse(Resp.success(
+            message=result.get_message(),
+            data=result.get_data()).to_dict(), safe=False)
+    else:
+        return JsonResponse(Resp.error(message=result.get_message()).to_dict(),
+                            safe=False)
+
+
+@api_view(['GET'])
+def turn_on_camera(request):
+    result = ResCameraProcess.turn_on_camera(request)
+    if result.is_success():
+        return JsonResponse(Resp.success(
+            message=result.get_message(),
+            data=result.get_data()).to_dict(), safe=False)
+    else:
+        return JsonResponse(Resp.error(message=result.get_message()).to_dict(),
+                            safe=False)

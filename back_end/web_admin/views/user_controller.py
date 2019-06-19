@@ -137,4 +137,3 @@ def profile_controller(request):
         return JsonResponse(
             Resp.error(message=result.get_message()).to_dict(),
             safe=False, )
-

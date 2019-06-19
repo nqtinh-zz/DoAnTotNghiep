@@ -17,6 +17,7 @@ import VeeValidate from 'vee-validate'
 import { i18n } from '@/plugins/i18n'
 import VueLazyload from 'vue-lazyload'
 import setAuthToken from './utils/setAuthToken'
+import HTTP_API from '@/api/config'
 Vue.prototype.$http = axios
 const token = localStorage.getItem('token')
 if (token) {

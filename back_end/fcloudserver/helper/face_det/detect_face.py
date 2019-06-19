@@ -7,9 +7,7 @@
 #  rights. So, if you accidentally receive this source code, please send an email
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import os
 
@@ -17,7 +15,7 @@ import os
 import cv2
 import numpy as np
 import tensorflow as tf
-from six import string_types, iteritems
+from six import iteritems, string_types
 
 
 def layer(op):

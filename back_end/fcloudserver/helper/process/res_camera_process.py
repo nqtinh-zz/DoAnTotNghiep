@@ -6,19 +6,14 @@
 #  resources below without our consent, is a violation of intellectual property
 #  rights. So, if you accidentally receive this source code, please send an email
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
-import os
-import time
 
-from django.views.decorators import gzip
+from datetime import datetime
 
 import cv2
-from datetime import datetime
 from django.db.models import Q
-from django.http import StreamingHttpResponse, Http404
 
-from config import django_settings
 # from config.log_config import log
-from db_accessor.models import Project, Camera, CameraGroup, XrefCameraGroup
+from db_accessor.models import Camera, CameraGroup, Process, Project, XrefCameraGroup
 from utils.constants import *
 from utils.result import Result
 
@@ -58,6 +53,7 @@ class ResCameraProcess:
                     stream_url=result_camera[KEY_STREAM_URL],
                     project_id=Project.objects.get(project_id=result_camera[KEY_PROJECT_ID]),
                     status=DEFAULT_STATUS_ACTIVE,
+                    is_running=True,
                 )
                 if result_create_camera:
                     camera_just_created = list(Camera.objects.filter(
@@ -97,6 +93,44 @@ class ResCameraProcess:
             return Result.failed(
                 message='Missing data in the request!'
             )
+
+    @classmethod
+    def turn_off_camera(cls, request):
+        camera_id = request.GET['camera_id']
+        process_running = list(Process.objects.filter(
+            camera_id=Camera.objects.get(camera_id=camera_id)
+        ).values())
+        for process in process_running:
+            process_cur = Process.objects.get(
+                process_id=process['process_id']
+            )
+            process_cur.process_status = 3
+            process_cur.save()
+        camera_off = Camera.objects.get(camera_id=camera_id)
+        camera_off.is_running = False
+        camera_off.save()
+        return Result.success(
+            message='Turn off camera success!'
+        )
+
+    @classmethod
+    def turn_on_camera(cls, request):
+        camera_id = request.GET['camera_id']
+        process_running = list(Process.objects.filter(
+            camera_id=Camera.objects.get(camera_id=camera_id)
+        ).values())
+        for process in process_running:
+            process_cur = Process.objects.get(
+                process_id=process['process_id']
+            )
+            process_cur.process_status = 2
+            process_cur.save()
+        camera_off = Camera.objects.get(camera_id=camera_id)
+        camera_off.is_running = True
+        camera_off.save()
+        return Result.success(
+            message='Turn on camera success!'
+        )
 
     @classmethod
     def get_all_camera(cls, request):
@@ -176,6 +210,16 @@ class ResCameraProcess:
                 xref_people_group = XrefCameraGroup.objects.select_related('camera_id') \
                     .filter(camera_id=result_delete_camera[KEY_CAMERA_ID])
                 xref_people_group.delete()
+                process_running = list(Process.objects.filter(
+                    camera_id=Camera.objects.get(
+                        camera_id=result_delete_camera.get(KEY_CAMERA_ID)
+                    )
+                ).values())
+                for process in process_running:
+                    process_cur = Process.objects.get(
+                        process_id=process['process_id']
+                    )
+                    process_cur.delete()
                 check_camera.status = DEFAULT_STATUS_DEACTIVE
                 check_camera.save()
                 return Result.success(
@@ -621,6 +665,7 @@ class ResCameraProcess:
                     'status': cls.check_camera_available(camera.get('stream_url'))
                 }
                 list_status.append(item)
+            print(list_status)
             return Result.success(
                 message='Status of all cameras',
                 data=list_status
@@ -637,7 +682,7 @@ class ResCameraProcess:
 
         if group_id:
             xref_camera_group = list(XrefCameraGroup.objects.select_related('camera_id')
-                                         .filter(camera_group_id=group_id).values())
+                                     .filter(camera_group_id=group_id).values())
 
             print(xref_camera_group)
             result = []
@@ -648,7 +693,7 @@ class ResCameraProcess:
                 print(camera)
                 group_list = []
                 xref_camera_group_tmp = list(XrefCameraGroup.objects.select_related('camera_id')
-                                         .filter(camera_id=item.get('camera_id_id')).values())
+                                             .filter(camera_id=item.get('camera_id_id')).values())
                 for tmp in xref_camera_group_tmp:
                     group_item = \
                         list(CameraGroup.objects.select_related('camera_group_id')
@@ -662,9 +707,9 @@ class ResCameraProcess:
             print('tinh')
             print(result)
             return Result.success(
-                    message='Status of all cameras',
-                    data=result
-                )
+                message='Status of all cameras',
+                data=result
+            )
         else:
             return Result.failed(
                 message='Missing data from request!!'

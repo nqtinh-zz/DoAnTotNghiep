@@ -11,12 +11,12 @@ import datetime
 import os
 
 import jwt
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.utils import timezone
 from rest_framework_jwt.settings import api_settings
 
 from config.django_settings import STATIC_DIR
-from db_accessor.models import User, UserToken, XrefAvatarUser, Profile
+from db_accessor.models import Profile, User, UserToken, XrefAvatarUser
 from static_serving import StaticServing
 from utils.constants import *
 from utils.result import Result
@@ -404,11 +404,11 @@ class Authen:
 
     @classmethod
     def change_password(cls, request):
-        old_password= request.data.get('old_password')
-        #old_password = cls.generate_password(request.data.get('old_password'))
+        old_password = request.data.get('old_password')
+        # old_password = cls.generate_password(request.data.get('old_password'))
         new_password = cls.generate_password(request.data.get('new_password'))
         user_information = jwt.decode(cls.parse_request_user_data(request).get('token'), SECRET_TOKEN_KEY)
-        #print(old_password)
+        # print(old_password)
         cur_user = User.objects.get(user_id=user_information[KEY_USER_ID])
         validated_user_password = cls.check_user_password(
             old_password,
@@ -676,4 +676,3 @@ class Authen:
         return Result.success(
             message='Success change profile!'
         )
-

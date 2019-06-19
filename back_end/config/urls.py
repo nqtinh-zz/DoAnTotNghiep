@@ -23,7 +23,7 @@ Including another URLconf
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
 from fcloudserver.urls.urls import fserver_patterns
 from web_admin.urls.api_user import user_patterns

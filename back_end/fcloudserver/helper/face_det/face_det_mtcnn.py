@@ -10,9 +10,9 @@
 from threading import Lock
 
 import dlib
+import tensorflow as tf
 
 from .detect_face import *
-import tensorflow as tf
 
 DfFaceDetConfid = 0.4
 

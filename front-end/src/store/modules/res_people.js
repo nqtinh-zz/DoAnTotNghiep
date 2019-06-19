@@ -30,10 +30,37 @@ const mutations = {
   },
   get_data_edit_person(state) {
     state.status = "get data edit success"
+  },
+  people_group_list_people(state, group) {
+    state.status = 'people_group_list_people'
+    state.group = group
   }
-
 }
 const actions = {
+  people_group_list_people({
+    commit
+  }, data_group) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${HTTP_API}/api/v/project/resources/people-group-list-people`,
+        data: data_group,
+        params: {
+          group_id: data_group.group_id
+        },
+        method: 'GET'
+      })
+        .then(resp => {
+          var desserts = [...resp.data.data];
+          commit('get_all_people_success', desserts)
+          resolve(resp)
+          console.log(resp)
+        })
+        .catch(err => {
+          
+          console.log(err)
+        })
+    })
+  },
   reload_list_person({
     commit
   }, person) {

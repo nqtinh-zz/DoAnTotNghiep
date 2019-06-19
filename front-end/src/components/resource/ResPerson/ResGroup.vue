@@ -1,8 +1,8 @@
 <template>
   <v-flex xs12 sm12 md3 lg3 xl3>
-    <div class="v-card v-sheet theme--light" style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% ">
+    <div class="v-card v-sheet theme--light" style="margin-left:42% !important;margin-bottom:15%;height: 750px;width:95% ">
       <v-layout row>
-        <v-flex xs4 sm4 md4 lg4 xl4>
+        <v-flex xs12 sm12 md12 lg12 xl12>
           <v-card-text style="font-size: 16px">Res Group</v-card-text>
         </v-flex>
       </v-layout>
@@ -18,9 +18,9 @@
             chips
           ></v-select>
         </v-flex>
-        <v-flex xs3 sm3 md3 lg3 xl3>
+        <v-flex xs1 sm1 md5 lg5 xl5>
           <v-btn
-            style="margin-top:22px"
+            style="margin-top:22px; width:90%"
             @click="search_group()"
             dark
             color="primary"
@@ -31,19 +31,18 @@
         <v-layout
           row
           wrap
-          style="height: 625px;margin-top:5%; max-width:100%
+          style="height: 550px;margin-top:5%; max-width:100%
             overflow:auto;"
         >
           <v-layout row wrap>
-            <v-layout  v-if="search_gr===true" row wrap>
+            <v-layout style="margin-left:5%" v-if="search_gr===true" row wrap>
               <v-flex xs6 sm6 md6 lg6 xl6 v-for="(item,index) in arr_search" :key="index">
                 <v-btn
                   class="click_choose"
                   :style="{ backgroundColor: item.people_group_color }"
-                  style=" text-transform: none !important;color:white;height:75px; width:100%"
+                  style="text-transform: none !important;color:white;height:75px; width:100%"
                   @contextmenu.prevent.stop="openContext($event, item)"
                 >{{item.people_group_code}}</v-btn>
-              
               </v-flex>
             </v-layout>
             <v-layout
@@ -57,7 +56,7 @@
                   <div v-if="dialog2 === true">{{check_color2}}</div>
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      style=" text-transform: none !important;height:75px; color:white; width:100%"
+                      style="text-transform: none !important;height:75px; color:white; width:100%"
                       dark
                       color="indigo"
                       @click="check_color()"
@@ -166,7 +165,7 @@
                 <v-btn
                   class="click_choose"
                   :style="{ backgroundColor: item.people_group_color }"
-                  style=" text-transform: none !important;color:white;height:75px;width:100%"
+                  style="text-transform: none !important;color:white;height:75px;width:100%"
                   @contextmenu.prevent.stop="openContext($event, item)"
                 >{{item.people_group_code}}</v-btn>
               </v-flex>
@@ -318,6 +317,10 @@ export default {
   data() {
     return {
       optionsArray1: [
+        {
+          name: this.$t(`res_person.list_perrson`),
+          slug: "view"
+        },
         {
           name: this.$t(`res_person.edit_group`),
           slug: "edit"
@@ -480,6 +483,19 @@ export default {
     },
     optionClicked1(event) {
       console.log(event);
+      if (event.option.slug === "view") {
+        console.log("test view", event.item.people_group_id);
+        let data={
+          group_id: event.item.people_group_id,
+          project_id: JSON.parse(localStorage.getItem("project_id"))
+        }
+        this.$store
+          .dispatch("people_group_list_people", data)
+          .then(resp => {
+            //reload lai person
+            
+          });
+      }
       if (event.option.slug === "edit")
         this.edit_group(
           event.item.people_group_id,

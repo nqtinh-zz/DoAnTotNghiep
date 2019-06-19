@@ -86,14 +86,19 @@
           <v-dialog v-model="dialog_selection" persistent max-width="500px">
             <Selection></Selection>
             <v-card>
+              <v-card-text>{{note_text}}</v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
                   color="blue darken-1"
                   flat
-                  @click="dialog_selection = false"
+                  @click="cancel_selection"
                 >{{$t(`res_camera.cancel`) }}</v-btn>
-                <v-btn color="blue darken-1" flat @click="open">{{$t(`res_camera.submit`) }}</v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  @click="submit_selection"
+                  flat
+                >{{$t(`res_camera.submit`) }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -189,10 +194,13 @@
                   <!-- <div style="font-size: 16px">{{ $t(`project.all_project`) }}</div> -->
                   <div>
                     <div style="margin-left: 80px; margin-bottom: 15px">
-                      <div v-if="check_one_camera === false" style="color: red;text-align: center">Camera không hoạt động vui lòng kiểm tra lại</div>
+                      <div
+                        v-if="check_one_camera === false"
+                        style="color: red;text-align: center"
+                      >Camera không hoạt động vui lòng kiểm tra lại</div>
                       <!-- <div v-if="check_one_camera === true" >
                         <div style="text-align: center">Loading</div>
-                      </div> -->
+                      </div>-->
                       <img v-bind:src="src_stream" alt="laichim" width="800px">
                     </div>
                   </div>
@@ -278,10 +286,11 @@
                 <span>
                   <v-switch
                     value
+                    v-model="props.item.is_running"
                     input-value="true"
                     color="#3177C7"
                     hide-details
-                    @change="choose_selection($event)"
+                    @change="choose_selection($event,props.item)"
                   ></v-switch>
                 </span>
               </td>
@@ -320,11 +329,12 @@
             </label>-->
             &nbsp;&nbsp;
             <div>
-              
               <!-- <div v-if="process_check_status === true" style="float: left">
                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
-              </div> -->
-              <span v-if="process_check_status === true"><v-progress-circular indeterminate color="primary"></v-progress-circular></span>
+              </div>-->
+              <span v-if="process_check_status === true">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              </span>
               <v-btn color="success" @click="check_status()">{{$t(`res_camera.check_status`) }}</v-btn>
               <AddCamera></AddCamera>
             </div>
@@ -351,7 +361,7 @@ import { validationMixin } from "vuelidate";
 import { required, maxLength, minLength } from "vuelidate/lib/validators";
 import VuetifyConfirm from "vuetify-confirm";
 import Selection from "./Selection";
-import HTTP_API from "@/api/config.js"
+import HTTP_API from "@/api/config.js";
 import Vue from "vue";
 Vue.use(VuetifyConfirm, {
   buttonTrueText: "Accept",
@@ -373,6 +383,9 @@ export default {
   },
   data() {
     return {
+      note_text: "abc",
+      camera_id_submit: "",
+      var_test: true,
       check_one_camera: true,
       process_check_status: false,
       dialog_view_camera: false,
@@ -398,6 +411,7 @@ export default {
       },
       valid: false,
       src_stream: "",
+      // list_process_of_camera: [],
       headers: [
         {
           text: "Camera name",
@@ -470,6 +484,70 @@ export default {
     ViewCamera
   },
   methods: {
+    cancel_selection() {
+      // this.selection = true
+      let data2 = {
+        project_id: JSON.parse(localStorage.getItem("project_id"))
+      };
+      this.$store
+        .dispatch("reload_list_camera", data2)
+        .then(resp2 => {
+          console.log("thanh cong 0123");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.dialog_selection = false;
+    },
+    submit_selection() {
+      if (this.var_test === false) {
+        let data = this.camera_id_submit;
+        this.$store
+          .dispatch("stop_camera", data)
+          .then(resp => {
+            if (resp.data.code === 0) {
+              let data2 = {
+                project_id: JSON.parse(localStorage.getItem("project_id"))
+              };
+              this.$store
+                .dispatch("reload_list_camera", data2)
+                .then(resp2 => {
+                  console.log("thanh cong 0123");
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              this.dialog_selection = false;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }else{
+        let data = this.camera_id_submit;
+        this.$store
+          .dispatch("start_camera", data)
+          .then(resp => {
+            if (resp.data.code === 0) {
+              let data2 = {
+                project_id: JSON.parse(localStorage.getItem("project_id"))
+              };
+              this.$store
+                .dispatch("reload_list_camera", data2)
+                .then(resp2 => {
+                  console.log("thanh cong 0123");
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              this.dialog_selection = false;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
     check_status() {
       this.process_check_status = true;
       let data = {
@@ -492,14 +570,32 @@ export default {
         (this.arr_group_camera = []),
         (this.$store.state.res_group_camera.dialog_add_gr_camera = true);
     },
-    choose_selection(event) {
-      console.log("nguyen tien trien");
+    choose_selection(event, item) {
+      console.log("nguyen tien trien", item);
       console.log(`${event}`);
-      this.selection = event;
+      this.camera_id_submit = item.camera_id;
+      this.$store
+        .dispatch("get_process_of_camera", item.camera_id)
+        .then(resp => {
+          console.log(resp);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // this.selection = event;
+      // this.var_test = true
       if (event === false) {
+        this.note_text =
+          "Bạn chắc chắn muốn tắt camera, các process của camera cũng sẽ ngưng hoạt động?";
+        this.var_test = false;
+        this.dialog_selection = true;
+      } else {
+        this.note_text =
+          "Bạn chắc chắn khởi động lại camera, các process chứa camera sẽ được chuyển về trạng thái Stop?";
+        this.var_test = true;
         this.dialog_selection = true;
       }
-      console.log(this.selection);
+      console.log("o day r trung ne`", this.selection);
     },
     deleteItem: function(item) {
       const index = this.desserts.indexOf(item);
@@ -507,7 +603,7 @@ export default {
         camera_id: item.camera_id,
         project_id: JSON.parse(localStorage.getItem("project_id"))
       };
-      this.$confirm("Are you sure you want to delete this camera?", {
+      this.$confirm("Are you sure you want to delete this camera? All processes involve with this camera will be deleted too! ", {
         title: "Delete Camera"
       }).then(res => {
         if (res === true) {
@@ -588,27 +684,24 @@ export default {
       });
     },
     view_data_camera: function(item) {
-      this.check_one_camera = true
+      this.check_one_camera = true;
       let data = item.stream_url;
       // console.log("item ne:", item)
       this.$store
         .dispatch("check_one_status", item.camera_id)
         .then(resp => {
-          console.log("ldh", resp)
-          if(resp.data.data === false)
-          {
-            this.check_one_camera = false
-          }
-          else {
-            this.check_one_camera = true
+          console.log("ldh", resp);
+          if (resp.data.data === false) {
+            this.check_one_camera = false;
+          } else {
+            this.check_one_camera = true;
           }
         })
         .catch(err => {
           console.log(err);
         });
       this.src_stream =
-        `${HTTP_API}/api/v/project/resources/live-stream?stream_url=` +
-        data;
+        `${HTTP_API}/api/v/project/resources/live-stream?stream_url=` + data;
       console.log("alo alo", this.src_stream);
       // console.log("nguyen chi trung 1", item);
       // this.$store

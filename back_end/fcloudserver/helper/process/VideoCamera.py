@@ -37,7 +37,7 @@ def gen(camera, request):
 def livefe(request):
     try:
         return StreamingHttpResponse(gen(VideoCamera(request.GET['stream_url']), request),
-                                     content_type="multipart/x-mixed-replace;boundary=frame")
+                                     content_type='multipart/x-mixed-replace;boundary=frame')
     except:  # This is bad! replace it with proper handling
         return Result.failed(
             message='Have some problems!'

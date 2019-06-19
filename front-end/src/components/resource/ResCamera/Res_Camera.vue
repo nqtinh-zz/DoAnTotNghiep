@@ -167,8 +167,8 @@ export default {
       }
     },
     add_function: function() {
-      this.credit = !this.credit;
-      console.log("sssssssss", this.credit);
+      // this.credit = !this.credit;
+      // console.log("sssssssss", this.credit);
       let data = {
         function_id: 1,
         project_id: JSON.parse(localStorage.getItem("project_id"))

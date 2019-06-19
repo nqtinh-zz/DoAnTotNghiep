@@ -1,27 +1,6 @@
 <template>
   <div>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue darken-3" dark app fixed>
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <a style="text-decoration: none;color:white" href="/">F.Cloud Console</a>
-      </v-toolbar-title>&nbsp;&nbsp;&nbsp;&nbsp;
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="search"
-        :label="$t('toolbar.search')"
-        class="hidden-sm-and-down"
-      ></v-text-field>
-      <v-spacer></v-spacer>
-      <langx></langx>
-      <a href="/signup">
-        <v-btn color="primary" style="width:120px">{{$t(`toolbar.register`)}}</v-btn>
-      </a>
-      <a href="/signin">
-        <v-btn color="primary" style="width:120px">{{$t(`toolbar.login`)}}</v-btn>
-      </a>
-    </v-toolbar>
+    <Header_Intro></Header_Intro>
     <section class="about-area area-padding-bottom">
       <div class="container">
         <div class="row ">
@@ -172,6 +151,7 @@ import Signin from "../users/SignIn.vue";
 import SelectProject from "../project/SelectProject.vue";
 // import AppEvents from '../../event.js'
 import menu from "../../api/menu.js";
+import Header_Intro from "./Header_Intro"
 export default {
   name: "HomeIntro",
   data: () => ({}),
@@ -179,12 +159,13 @@ export default {
   components: {
     Profile,
     Signin,
-    SelectProject
+    SelectProject,
+    Header_Intro
   }
 };
 </script>
 
-<style lang="css">
+<style lang="scss" scoped>
 @import "./favison/css/bootstrap.css";
 @import "./favison/css/themify-icons.css";
 @import "./favison/vendors/fontawesome/css/all.min.css";

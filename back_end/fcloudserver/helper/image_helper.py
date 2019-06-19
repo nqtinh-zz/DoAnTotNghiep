@@ -49,7 +49,7 @@ def np_arr_to_base64(np_img):
 
 
 def image_file_to_base64_str(file):
-    with open(file, "rb") as image_file:
+    with open(file, 'rb') as image_file:
         encoded_string = base64.b64encode(image_file.read())
         return encoded_string
 

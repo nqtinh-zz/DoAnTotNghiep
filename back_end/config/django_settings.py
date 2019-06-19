@@ -49,8 +49,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,26 +89,17 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = ['db_accessor.user_router.UserRouter']
-DATABASE_OPTIONS = {"init_command": "SET foreign_key_checks = 0;"}
+DATABASE_OPTIONS = {'init_command': 'SET foreign_key_checks = 0;'}
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
-    'localhost:8081'
+    'localhost:8081',
+    'http://doantotnghiep-2019.appspot.com',
 )
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
 ]
 
 REST_FRAMEWORK = {

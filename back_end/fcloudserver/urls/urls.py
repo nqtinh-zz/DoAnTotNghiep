@@ -17,7 +17,7 @@ to rd-support@fujinet.net, so we can find the best solution for this problem.
 #  rights. So, if you accidentally receive this source code, please send an email
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
 
-from django.urls import path, include
+from django.urls import include, path
 
 from fcloudserver.urls.api_channel.api_channel import channel_patterns
 from .api_function.api_function import function_patterns
@@ -28,5 +28,5 @@ fserver_patterns = [
     path('project/', include(project_patterns)),
     path('project/function/', include(function_patterns)),
     path('project/resources/', include(res_patterns)),
-    path('project/channel/', include(channel_patterns),)
+    path('project/channel/', include(channel_patterns), )
 ]

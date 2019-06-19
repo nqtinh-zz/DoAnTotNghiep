@@ -173,6 +173,37 @@ const actions = {
         .then(resp => {
           console.log("data get list process: ", resp.data)
           commit("get_list_process_success", resp.data.data)
+          resolve(resp)
+        })
+        .catch(err => {
+          
+          console.log(err)
+        })
+    })
+  },
+  get_process_of_camera({
+    commit
+  }, data) {
+    return new Promise((resolve, reject) => {
+      axios({
+          url: `${HTTP_API}/api/v/project/channel/get-process-list`,
+          params: {
+            project_id : JSON.parse(localStorage.getItem("project_id"))
+          },
+          method: 'GET'
+        })
+        .then(resp => {
+          console.log("data get list process: ", resp.data)
+          let arr_list_process = []
+          for(let i=0;i<resp.data.data.length;i++)
+          {
+            if(resp.data.data[i].camera_id_id === data)
+            {
+              arr_list_process.push(resp.data.data[i])
+            }
+          }
+          console.log("mang process of camera", arr_list_process)
+          commit("get_list_process_success", arr_list_process)
         })
         .catch(err => {
           

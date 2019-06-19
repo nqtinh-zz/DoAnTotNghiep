@@ -1,3 +1,3 @@
-const HTTP_REQUEST = `http://127.0.0.1:8000`;
+const HTTP_API = `http://113.161.57.90:5001`;
 
-export default HTTP_REQUEST
+export default HTTP_API

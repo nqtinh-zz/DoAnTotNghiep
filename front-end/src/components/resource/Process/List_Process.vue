@@ -3,66 +3,72 @@
     <v-layout row wrap justify-center class="my-0">
       <v-flex xs12 sm12 md9 lg9 xl9>
         <div style="margin-left:3%; width:110%">
-        <v-card height="100%">
-          <v-card-title style="font-size: 16px">
-            Process
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="list_process"
-            :search="search"
-            :pagination.sync="pagination"
-          >
-            <template v-slot:items="props">
-              <!-- <td><span class="v-stepper__step__step success"><i class="material-icons"></i></span></td> -->
-              <td style="font-size: 15px">{{ props.item.process_name }}</td>
-              <!-- <td>{{ props.item.channel_name }}</td> -->
-              <td style="font-size: 15px">
-                <div v-if="props.item.process_status === 1">
-                  <v-chip color="primary" text-color="white" style="font-size: 15px">Running</v-chip>
-                </div>
-                <div v-if="props.item.process_status === 2">
-                  <v-chip color="grey" text-color="white" style="font-size: 15px">Stopped</v-chip>
-                </div>
-                <div v-if="props.item.process_status === 0">
-                  <v-chip color="success" text-color="white" style="font-size: 15px">Init</v-chip>
-                </div>
-                <div v-if="props.item.process_status === 3">
-                  <v-chip color="error" text-color="white" style="font-size: 15px">Error</v-chip>
-                </div>
-              </td>
-              <td>
-                <div v-if="props.item.process_status !== 1">
-                  <v-btn @click="start_process(props.item.process_id)" color="success">Start</v-btn>
-                </div>
-                <div v-if="props.item.process_status === 1">
-                  <v-btn @click="stop_process(props.item.process_id)" color="warning">Stop</v-btn>
-                </div>
-              </td>
+          <v-card height="100%">
+            <v-card-title style="font-size: 16px">
+              Process
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :headers="headers"
+              :items="list_process"
+              :search="search"
+              :pagination.sync="pagination"
+            >
+              <template v-slot:items="props">
+                <!-- <td><span class="v-stepper__step__step success"><i class="material-icons"></i></span></td> -->
+                <td style="font-size: 15px">{{ props.item.process_name }}</td>
+                <!-- <td>{{ props.item.channel_name }}</td> -->
+                <td style="font-size: 15px">
+                  <div v-if="props.item.process_status === 1">
+                    <v-chip color="primary" text-color="white" style="font-size: 15px">Running</v-chip>
+                  </div>
+                  <div v-if="props.item.process_status === 2">
+                    <v-chip color="grey" text-color="white" style="font-size: 15px">Stopped</v-chip>
+                  </div>
+                  <div v-if="props.item.process_status === 0">
+                    <v-chip color="success" text-color="white" style="font-size: 15px">Init</v-chip>
+                  </div>
+                  <div v-if="props.item.process_status === 3">
+                    <v-chip color="error" text-color="white" style="font-size: 15px">Error</v-chip>
+                  </div>
+                </td>
+                <td>
+                  <div v-if="props.item.process_status !== 1 & props.item.process_status !== 3">
+                    <v-btn @click="start_process(props.item.process_id)" color="success">Start</v-btn>
+                  </div>
+                  <div v-if="props.item.process_status === 3">
+                    <v-btn @click="start_process_error(props.item)" color="error">Start</v-btn>
+                  </div>
+                  <div v-if="props.item.process_status === 1">
+                    <v-btn @click="stop_process(props.item.process_id)" color="warning">Stop</v-btn>
+                  </div>
+                </td>
 
-              <td class="text-xs-right">
-                <v-icon small @click="view_info_process(props.item)">search</v-icon>&nbsp;
-                <v-icon small @click="data_edit_process(props.item)">edit</v-icon>&nbsp;
-                <v-icon small @click="delete_process(props.item)">delete</v-icon>
-              </td>
-            </template>
-          </v-data-table>
-          <div class="text-xs-right mr-4">
-            <Add_Process></Add_Process>
-          </div>
-        </v-card>
+                <td class="text-xs-right">
+                  <v-icon small @click="view_info_process(props.item)">search</v-icon>&nbsp;
+                  <v-icon small @click="data_edit_process(props.item)">edit</v-icon>&nbsp;
+                  <v-icon small @click="delete_process(props.item)">delete</v-icon>
+                </td>
+              </template>
+            </v-data-table>
+            <div class="text-xs-right mr-4">
+              <Add_Process></Add_Process>
+            </div>
+          </v-card>
         </div>
       </v-flex>
       <v-flex xs12 sm12 md3 lg3 xl3>
-        <div class="v-card v-sheet theme--light" style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% ">
+        <div
+          class="v-card v-sheet theme--light"
+          style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% "
+        >
           <v-layout row>
             <v-flex xs8 sm8 md8 lg8 xl8>
               <v-card-text style="font-size: 16px">Process Information</v-card-text>
@@ -80,7 +86,8 @@
               <!-- <v-text-field v-model="v_process_camera" label="Camera" readonly></v-text-field> -->
               <v-select
                 v-bind:items="listCamera_edit"
-                :label=this.v_process_camera
+                v-model="v_process_camera"
+                label="Camera"
                 item-text="camera_name"
                 item-value="camera_id"
                 chips
@@ -92,12 +99,13 @@
               <v-select
                 v-bind:items="listGroup_edit"
                 v-model="v_process_group_people"
-                :label=this.v_process_group_people
+                label="Group people"
                 item-text="people_group_code"
                 item-value="people_group_id"
                 multiple
                 chips
                 readonly
+                
               ></v-select>
             </v-flex>
           </v-layout>
@@ -138,15 +146,13 @@
                   ></v-text-field>&nbsp;
                   <v-flex xs1 sm1></v-flex>
                 </v-layout>
-                <!-- <v-layout wrap row>
-                    <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
-                    <div v-if="add_fail === true">
-                      <v-flex
-                        style="margin-left: 15px; color: red"
-                      >Camera name đã tồn tại, vui lòng nhập lại.</v-flex>
-                    </div>
-                    <v-flex xs1 sm1></v-flex>
-                </v-layout>-->
+                <v-layout wrap row>
+                  <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
+                  <div v-if="process_name_fail === true">
+                    <v-flex style="margin-left: 15px; color: red">Process name is required</v-flex>
+                  </div>
+                  <v-flex xs1 sm1></v-flex>
+                </v-layout>
                 <v-layout wrap row>
                   <v-flex xs3 sm3 pt-4 style="font-size: 17px">
                     <b>Camera</b>
@@ -155,13 +161,20 @@
                     <v-select
                       v-bind:items="listCamera_edit"
                       v-model="camera_edit"
-                      :label="this.name_camera_id"
+                      label="choose group"
                       item-text="camera_name"
                       item-value="camera_id"
                       chips
                       persistent-hint
                     ></v-select>
                   </v-flex>
+                </v-layout>
+                <v-layout wrap row>
+                  <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
+                  <div v-if="camera_fail === true">
+                    <v-flex style="margin-left: 15px; color: red">Camera is required</v-flex>
+                  </div>
+                  <v-flex xs1 sm1></v-flex>
                 </v-layout>
                 <v-layout wrap row pt-3>
                   <v-flex xs3 sm3 pt-4 style="font-size: 17px">
@@ -171,7 +184,7 @@
                     <v-select
                       v-bind:items="listGroup_edit"
                       v-model="list_group_edit"
-                      :label="this.name_group"
+                      label="choose group people"
                       item-text="people_group_code"
                       item-value="people_group_id"
                       multiple
@@ -184,6 +197,13 @@
                   multiple
                     ></v-autocomplete>-->
                   </v-flex>
+                </v-layout>
+                <v-layout wrap row>
+                  <v-flex xs3 sm3 pt-4 style="font-size: 17px"></v-flex>
+                  <div v-if="people_group_fail === true">
+                    <v-flex style="margin-left: 15px; color: red">People group is required</v-flex>
+                  </div>
+                  <v-flex xs1 sm1></v-flex>
                 </v-layout>
                 <v-layout wrap row>
                   <v-flex xs3 sm3 pt-4 style="font-size: 17px">
@@ -238,6 +258,9 @@ export default {
   },
   data() {
     return {
+      process_name_fail: false,
+      camera_fail: false,
+      people_group_fail: false,
       v_process_name: "",
       v_process_status: "",
       v_process_camera: "",
@@ -347,10 +370,12 @@ export default {
     list_group: state => state.res_group_camera.list_group_camera,
     list_process: state => state.abc_process.list_process,
     listGroup_edit() {
+      console.log("danh sach group people", this.$store.getters.Process_ListGroup)
       return this.$store.getters.Process_ListGroup;
     },
     listCamera_edit() {
       let list_temp = this.$store.getters.ListCamera;
+      // console.log("danh sach camera", list_temp)
       // let list_return = [];
       // for (let i = 0; i < list_temp.length; i++) {
       //   list_return.push(list_temp[i].camera_name);
@@ -379,7 +404,17 @@ export default {
     }
   }),
   methods: {
+    start_process_error: function(item)
+    {
+      
+      this.$confirm("Camera đã bị tắt hoạt động, vui lòng truy cập resource camera để khởi động lại", {
+        title: "Khởi động process lỗi "
+      }).then(res => {
+        console.log('alo nghe ne:', item)
+      });
+    },
     view_info_process: function(item) {
+      // console.log("cho trung ", item)
       this.v_process_name = item.process_name;
       if (item.process_status === 0) {
         this.v_process_status = "Init";
@@ -401,29 +436,33 @@ export default {
         }
       }
 
-      var res = item.people_group_id.substring(1, item.people_group_id.length-1);
-      var tmp = res.split(",");
+      var res = item.people_group_id.substring(
+        1,
+        item.people_group_id.length - 1
+      );
+      var tmp = res.split(',').map(x=>parseInt(x))
       let group_name_tmp = [];
-      group_name_tmp.push('[')
+      group_name_tmp.push("[");
       for (let i = 0; i < tmp.length; i++) {
         for (let t = 0; t < this.$store.state.res_people.group.length; t++) {
-          if (
-            tmp[i] ==
-            this.$store.state.res_people.group[t].people_group_id
-          ) {
+          if (tmp[i] == this.$store.state.res_people.group[t].people_group_id) {
             group_name_tmp.push(
-              this.$store.state.res_people.group[t].people_group_code,', '
+              this.$store.state.res_people.group[t].people_group_code,
+              ", "
             );
             console.log("test", group_name_tmp);
           }
         }
       }
-      group_name_tmp.push(']')
-      this.v_process_camera = camera_name_tmp;
-      this.v_process_group_people = group_name_tmp;
+      group_name_tmp.push("]");
+      // this.v_process_camera = camera_name_tmp;
+      this.v_process_camera = item.camera_id_id
+      // console.log("trung cam mom:", tmp)
+      this.v_process_group_people = tmp;
       console.log("abc", item);
     },
-    data_edit_process: function(item) {
+    async data_edit_process(item) {
+      console.log("Trung cho dien: ", item)
       let camera_name_tmp;
       for (let t = 0; t < this.$store.state.res_camera.listCamera.length; t++) {
         if (
@@ -435,27 +474,29 @@ export default {
         }
       }
 
-      var res = item.people_group_id.substring(1, item.people_group_id.length-1);
-      var tmp = res.split(",");
+      var res = item.people_group_id.substring(
+        1,
+        item.people_group_id.length - 1
+      );
+      var tmp = res.split(',').map(x=>parseInt(x))
       let group_name_tmp = [];
-      group_name_tmp.push('[')
+      group_name_tmp.push("[");
       for (let i = 0; i < tmp.length; i++) {
         for (let t = 0; t < this.$store.state.res_people.group.length; t++) {
-          if (
-            tmp[i] ==
-            this.$store.state.res_people.group[t].people_group_id
-          ) {
+          if (tmp[i] == this.$store.state.res_people.group[t].people_group_id) {
             group_name_tmp.push(
-              this.$store.state.res_people.group[t].people_group_code,', '
+              this.$store.state.res_people.group[t].people_group_code,
+              ", "
             );
             console.log("test", group_name_tmp);
           }
         }
       }
-      group_name_tmp.push(']')
+      group_name_tmp.push("]");
       let data = {
         process_id: item.process_id
       };
+
       this.$store
         .dispatch("get_process", data)
         .then(resp => {
@@ -464,15 +505,18 @@ export default {
         .catch(err => {
           console.log(err);
         });
+
       this.dialog_edit_process = true;
-      this.list_group_edit = item.people_group_ids;
+      this.list_group_edit = tmp;
+      // console.log("trung cho dien 2", tmp)
       this.name_camera_id = camera_name_tmp;
-      this.camera_edit = item.camera_id;
+      // this.camera_edit = item.camera_id;
+      this.camera_edit = item.camera_id_id 
       this.name_group = group_name_tmp;
       this.process_name_edit = item.process_name;
       this.process_id_tmp = item.process_id;
-      var ll = item.process_config;
-      console.log("ll", item.people_group_id);
+      // var ll =await JSON.parse(item.process_config);
+      // console.log('ssssssssssssssss',ll);
       // var t=JSON.parse(ll)
       // console.log('t',t)
       this.editor.setValue(
@@ -480,6 +524,9 @@ export default {
       );
     },
     close_dialog_edit_process() {
+      this.people_group_fail = false;
+      this.process_name_fail = false;
+      this.camera_fail = false;
       this.dialog_edit_process = false;
     },
     async submit_edit_process() {
@@ -493,20 +540,39 @@ export default {
         process_config: await JSON.parse(this.editor.getValue()),
         project_id: JSON.parse(localStorage.getItem("project_id"))
       };
-      console.log("data update process ", data);
-      this.$store
-        .dispatch("update_process", data)
-        .then(resp => {
-          this.dialog_edit_process = false;
-          this.a1 = [];
-          this.a2 = [];
-          this.process_name = [];
-          this.$v.$reset();
-          console.log("update process xong : ", resp);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      console.log("data update process ", this.process_name_edit);
+      if (this.camera_edit == "") {
+        this.camera_fail = true;
+      }
+      if (this.list_group_edit.length == 0) {
+        this.people_group_fail = true;
+      }
+      if (this.process_name_edit == "") {
+        console.log('sai')
+        this.process_name_fail = true;
+      }
+      if (
+        this.camera_edit != "" &&
+        this.list_group_edit.length != 0 &&
+        this.process_name_edit != ""
+      ) {
+        this.$store
+          .dispatch("update_process", data)
+          .then(resp => {
+            this.dialog_edit_process = false;
+            this.a1 = [];
+            this.a2 = [];
+            this.process_name = [];
+            this.people_group_fail = false;
+            this.process_name_fail = false;
+            this.camera_fail = false;
+            this.$v.$reset();
+            console.log("update process xong : ", resp);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     },
     delete_process: function(item) {
       const index = this.list_process.indexOf(item);
@@ -547,16 +613,34 @@ export default {
       let data = {
         process_id: process_id
       };
-      this.$store.dispatch("start_process", data).then(resp => {});
-      console.log("id_", process_id);
+      this.$confirm("Are you sure you want to start this process ?", {
+        title: "Start process"
+      }).then(res => {
+        if (res === true) {
+          this.$store.dispatch("start_process", data).then(resp => {});
+          console.log("id_", process_id);
+        }
+      });
     },
     stop_process: function(process_id) {
       let data = {
         process_id: process_id
       };
-      this.$store.dispatch("stop_process", data).then(resp => {});
-      console.log("id_", process_id);
+      this.$confirm("Are you sure you want to stop this process ?", {
+        title: "Stop process"
+      }).then(res => {
+        if (res === true) {
+          this.$store.dispatch("stop_process", data).then(resp => {});
+          console.log("id_", process_id);
+        }
+      });
     }
   }
 };
 </script>
+<style >
+.v-chip--disabled{
+  background-color: #3B7ECA !important;
+  color: white !important;
+}
+</style>

@@ -6,15 +6,13 @@
 #  resources below without our consent, is a violation of intellectual property
 #  rights. So, if you accidentally receive this source code, please send an email
 #  to rd-support@fujinet.net, so we can find the best solution for this problem.
-import json
 import datetime
 from hashlib import blake2b
-from utils.result import Result
-import httplib2
-from urllib.parse import urlencode
+
+from db_accessor.models import Camera, Process, Project
 from fcloudserver.helper.process.default_config import DefaultConfig
 from utils.constants import *
-from db_accessor.models import User, UserToken, Project, Profile, Process,Camera
+from utils.result import Result
 
 
 class ChannelProcess:
@@ -50,9 +48,10 @@ class ChannelProcess:
         information if it exists, otherwise None
         """
 
-        if (KEY_PROCESS_ID in request.data and KEY_PROCESS_NAME in request.data and KEY_PROCESS_PEOPLE_GROUP_ID in request.data and
+        if (
+                KEY_PROCESS_ID in request.data and KEY_PROCESS_NAME in request.data and KEY_PROCESS_PEOPLE_GROUP_ID in request.data and
                 KEY_PROCESS_CONFIG in request.data and KEY_PROCESS_CAMERA_ID in request.data
-                and KEY_PROCESS_PROJECT_ID in request.data ):
+                and KEY_PROCESS_PROJECT_ID in request.data):
             return {
                 KEY_PROCESS_ID: request.data[KEY_PROCESS_ID],
                 KEY_PROCESS_NAME: request.data[KEY_PROCESS_NAME],
@@ -85,7 +84,12 @@ class ChannelProcess:
     def create_process(cls, request):
         process = cls.parse_create_process(request)
         if process:
-            result_check_processname = Process.objects.filter(process_name=process[KEY_PROCESS_NAME]).values()
+            result_check_processname = Process.objects.filter(
+                process_name=process[KEY_PROCESS_NAME],
+                project_id=Project.objects.get(
+                    project_id=process[KEY_PROJECT_ID]
+                )
+            ).values()
             if not result_check_processname.exists():
                 result_create_process = Process.objects.create(
                     process_name=process[KEY_PROCESS_NAME],
@@ -96,10 +100,19 @@ class ChannelProcess:
                     process_status=DEFAULT_PROCESS_CREATE
                 )
                 if result_create_process:
-                    get_process_id = list(Process.objects.filter(process_name=process[KEY_PROCESS_NAME]).values())[0].get('process_id')
+                    get_process_id = list(Process.objects.filter(
+                        process_name=process[KEY_PROCESS_NAME],
+                        project_id=Project.objects.get(
+                            project_id=process[KEY_PROJECT_ID]
+                        ),
+                    ).values())[0].get('process_id')
                     tmp_process_token = cls.create_process_token(get_process_id, datetime.datetime.now())
                     result = Process.objects.get(
-                        process_name=process[KEY_PROCESS_NAME])
+                        process_name=process[KEY_PROCESS_NAME],
+                        project_id=Project.objects.get(
+                            project_id=process[KEY_PROJECT_ID]
+                        ),
+                    )
                     result.process_token = tmp_process_token
                     result.save()
                     return Result.success(
@@ -132,9 +145,10 @@ class ChannelProcess:
                 )
             result = []
             list_all_process = list(all_process.values())
-            print()
             for process in list_all_process:
-                #print(json.loads(json.dumps(process.get('process_config'))))
+                # print(json.loads(json.dumps(process.get('process_config'))))
+                process['process_config'] = eval(process['process_config'])
+                print(process)
                 result.append(process)
             return Result.success(
                 message="Get all process successful",
@@ -154,10 +168,10 @@ class ChannelProcess:
             )
             process_update.process_status = KEY_PROCESS_START
             process_update.save()
-            result = list(Process.objects.filter(process_id=process_id,).values())[0]
+            result = list(Process.objects.filter(process_id=process_id, ).values())[0]
             return Result.success(
                 message='Success start process!',
-                data = result
+                data=result
             )
         else:
             return Result.failed(
@@ -209,17 +223,14 @@ class ChannelProcess:
     @classmethod
     def update_process(cls, request):
         process = cls.parse_update_process(request)
-        print(process)
         if process:
             Process.objects.filter(process_id=process[KEY_PROCESS_ID]).update(
                 process_name=process[KEY_PROCESS_NAME],
                 process_config=process[KEY_PROCESS_CONFIG],
-                people_group_id = process[KEY_PROCESS_PEOPLE_GROUP_ID],
+                people_group_id=process[KEY_PROCESS_PEOPLE_GROUP_ID],
                 camera_id=Camera.objects.get(camera_id=process[KEY_PROCESS_CAMERA_ID])
             )
 
-
-            print('test')
             return Result.success(
                 message='Success edit process!'
             )

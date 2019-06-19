@@ -9,18 +9,17 @@
 
 
 import base64
-from datetime import datetime
-import uuid
-import six
 import os
+import uuid
+from datetime import datetime
+
+import six
 from django.core.files.base import ContentFile
 from django.db.models import Q
 
-from config import django_settings
 # from config.log_config import log
-from config.django_settings import BASE_DIR, STATIC_DIR
-from db_accessor.models import Project, ResPeopleImage, PeopleGroup, XrefPeopleGroup, \
-    People
+from config.django_settings import STATIC_DIR
+from db_accessor.models import (People, PeopleGroup, Project, ResPeopleImage, XrefPeopleGroup)
 from fcloudserver.helper.face_desc_gen import FaceRecCoreV1
 from fcloudserver.helper.image_helper import multipart_file_to_np_image
 from static_serving import StaticServing
@@ -276,6 +275,7 @@ class ResPeopleProcess:
     def add_person(cls, request):
         project_id = request.data.get('project_id')
         person_code = request.data.get('person_code')
+        print(request.data)
         check_person_code = People.objects.filter(
             person_code=person_code,
             project_id=Project.objects.get(
@@ -294,6 +294,26 @@ class ResPeopleProcess:
                     project_id=Project.objects.get(project_id=request.data.get('project_id')),
                     status=DEFAULT_STATUS_ACTIVE,
                 ).values())[0]
+                if request.data.get('group') == '':
+                    group_array = []
+                else:
+                    group_array = request.data.get('group').split(",")
+                if len(group_array) != 0:
+                    for group in group_array:
+                        result_create_group_person = XrefPeopleGroup.objects.create(
+                            person_id=People.objects.get(
+                                person_id=person_just_created.get(KEY_PERSON_ID),
+                                status=DEFAULT_STATUS_ACTIVE
+                            ),
+                            people_group_id=PeopleGroup.objects.get(
+                                people_group_code=group,
+                                status=DEFAULT_STATUS_ACTIVE
+                            )
+                        )
+                        if not result_create_group_person:
+                            return Result.failed(
+                                message='Have some problem when create group!'
+                            )
 
                 if len(request.FILES.getlist(person_code)) != 0:
                     project_id = request.data.get('project_id')
@@ -333,26 +353,7 @@ class ResPeopleProcess:
                                     message='Have some problem when add image data!'
                                 )
 
-                    if request.data.get('group') == '':
-                        group_array = []
-                    else:
-                        group_array = request.data.get('group').split(",")
-                    if len(group_array) != 0:
-                        for group in group_array:
-                            result_create_group_person = XrefPeopleGroup.objects.create(
-                                person_id=People.objects.get(
-                                    person_id=person_just_created.get(KEY_PERSON_ID),
-                                    status=DEFAULT_STATUS_ACTIVE
-                                ),
-                                people_group_id=PeopleGroup.objects.get(
-                                    people_group_code=group,
-                                    status=DEFAULT_STATUS_ACTIVE
-                                )
-                            )
-                            if not result_create_group_person:
-                                return Result.failed(
-                                    message='Have some problem when create group!'
-                                )
+
                 return Result.success(
                     message='Success add person!'
                 )
@@ -573,7 +574,7 @@ class ResPeopleProcess:
     @classmethod
     def add_people_group(cls, request):
         result_group_data = cls.parse_add_people_group_data(request)
-        print(result_group_data)
+
         if result_group_data:
             check_group_exist = PeopleGroup.objects.filter(
                 project_id=result_group_data[KEY_PROJECT_ID],
@@ -1001,3 +1002,43 @@ class ResPeopleProcess:
         )
 
         return face_desc_str
+
+    @classmethod
+    def people_group_list_people(cls, request):
+        group_id = request.GET['group_id']
+        print(group_id)
+
+        if group_id:
+            xref_people_group = list(XrefPeopleGroup.objects.select_related('person_id')
+                                     .filter(people_group_id=group_id).values())
+
+            print(xref_people_group)
+            result = []
+            for item in xref_people_group:
+                person = list(People.objects.filter(
+                    person_id=item.get('person_id_id'),
+                    status=DEFAULT_STATUS_ACTIVE).values())[0]
+                print(person)
+                group_list = []
+                xref_person_group_tmp = list(XrefPeopleGroup.objects.select_related('person_id')
+                                             .filter(person_id=item.get('person_id_id')).values())
+                for tmp in xref_person_group_tmp:
+                    group_item = \
+                        list(PeopleGroup.objects.select_related('people_group_id')
+                             .filter(people_group_id=tmp.get('people_group_id_id'),
+                                     ).values())
+                    if len(group_item) > 0:
+                        group_list.append(group_item[0])
+                temp = person
+                temp['group'] = group_list
+                result.append(temp)
+            print('tinh')
+            print(result)
+            return Result.success(
+                message='Status of all person',
+                data=result
+            )
+        else:
+            return Result.failed(
+                message='Missing data from request!!'
+            )
