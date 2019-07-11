@@ -37,7 +37,7 @@
             </div>
           </v-flex>
           <v-flex xs12 sm4>
-            <v-container grid-list-xl>
+            <v-container grid-list-md>
               <v-layout row wrap align-center>
                 <v-flex xs12 sm12 md4 lg4 xl4>
                   <v-card  class="elevation-0 transparent">
@@ -209,7 +209,7 @@ export default {
 // @import "./favison/css/style.css";
 // @import "./favison/css/responsive.css";
 .v-content__wrap {
-  max-width: 120%;
+  max-width: 120% !important;
 }
 // a {  text-decoration: none;}
 // .container {

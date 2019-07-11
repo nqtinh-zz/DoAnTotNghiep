@@ -77,7 +77,7 @@ const actions = {
         .then(resp2 => {
           var desserts = [...resp2.data.data]
           commit('get_all_people_success', desserts)
-          // resolve(resp)
+          resolve(resp2)
         })
         .catch(err => {
           console.log(err)
@@ -106,7 +106,7 @@ const actions = {
             .then(resp2 => {
               var desserts = [...resp2.data.data]
               commit('add_person_success', desserts)
-              // resolve(resp)
+              resolve(resp2)
             })
             .catch(err => {
               console.log(err)
@@ -138,7 +138,7 @@ const actions = {
             listGroup.push(temp[i].people_group_code)
           }
           commit('get_all_group', listGroup)
-          // resolve(resp)
+          resolve(resp)
         })
         .catch(err => {
           console.log(err)
@@ -173,7 +173,7 @@ const actions = {
           // listGroup.splice(index_delete,1)
 
           commit('group_of_person', listGroup)
-          // resolve(resp)
+          resolve(resp)
         })
         .catch(err => {
           console.log(err)
@@ -195,7 +195,7 @@ const actions = {
           var desserts = [...resp.data.data];
           commit('get_all_people_success', desserts)
 
-          // resolve(resp)
+          resolve(resp)
         })
         .catch(err => {
           console.log(err)
@@ -245,7 +245,7 @@ const actions = {
               var desserts = [...resp2.data.data];
               commit('get_all_people_success', desserts)
 
-              // resolve(resp)
+              resolve(resp2)
             })
             .catch(err2 => {
               console.log(err2)
@@ -280,7 +280,7 @@ const actions = {
               var desserts = [...resp2.data.data];
               commit('get_all_people_success', desserts)
 
-              // resolve(resp)
+              resolve(resp2)
             })
             .catch(err2 => {
               console.log(err2)
@@ -316,12 +316,12 @@ const actions = {
               var desserts = [...resp2.data.data];
               commit('get_all_people_success', desserts)
 
-              // resolve(resp)
+              resolve(resp2)
             })
             .catch(err2 => {
               console.log(err2)
             })
-          // resolve(resp)
+          resolve(resp)
           console.log(resp)
         })
         .catch(err => {
@@ -372,7 +372,7 @@ const actions = {
               var desserts = [...resp2.data.data];
               commit('get_all_people_success', desserts)
 
-              // resolve(resp)
+              resolve(resp2)
             })
             .catch(err2 => {
               console.log(err2)

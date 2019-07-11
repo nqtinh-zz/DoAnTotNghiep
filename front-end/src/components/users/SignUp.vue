@@ -4,7 +4,7 @@
       <main>
         <v-container fluid fill-height class="loginOverlay">
           <v-layout flex align-center justify-center mt-5>
-            <v-flex xs12 sm5 elevation-6>
+            <v-flex xs12 sm6 elevation-6>
               <v-layout row wrap>
                 <v-flex xs12 sm12 lg12 xl12 md12>
                   <v-toolbar class="pt-4 blue darken-4" style="padding:10px">
@@ -152,8 +152,7 @@
                   </v-form>
                 </div>
                 <div
-                  class="hidden-lg-and-down"
-                  style="float: right ;margin-top: 100px;margin-right:70px;"
+                  style="float: left ;margin-top: 110px"
                 >
                   <img
                     src="https://fit.uit.edu.vn/attachments/article/4644/FUJINET1.png"

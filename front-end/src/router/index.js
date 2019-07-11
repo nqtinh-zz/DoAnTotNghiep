@@ -46,7 +46,7 @@ const router = new Router({
       meta: {
         title: 'Dashboard'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/',
@@ -91,7 +91,7 @@ const router = new Router({
       meta: {
         title: 'NewProject'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/FSmartDoor',
@@ -127,7 +127,7 @@ const router = new Router({
       meta: {
         title: 'fsmartdoor'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/firedetect',
@@ -136,7 +136,7 @@ const router = new Router({
       meta: {
         title: 'firedetect'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/resperson',
@@ -145,7 +145,7 @@ const router = new Router({
       meta: {
         title: 'resperson'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/creditcard',
@@ -154,7 +154,7 @@ const router = new Router({
       meta: {
         title: 'creditcard'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/rescamera',
@@ -163,7 +163,7 @@ const router = new Router({
       meta: {
         title: 'rescamera'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/profile',
@@ -172,7 +172,7 @@ const router = new Router({
       meta: {
         title: 'profile'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/change_password',
@@ -181,7 +181,7 @@ const router = new Router({
       meta: {
         title: 'Change password'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/process',
@@ -190,7 +190,7 @@ const router = new Router({
       meta: {
         title: 'process'
       },
-       
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/500',

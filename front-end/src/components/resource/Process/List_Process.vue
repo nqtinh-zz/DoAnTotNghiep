@@ -1,74 +1,69 @@
 <template>
-  <div style="margin-top:2%;width:90%">
+  <v-container grid-list-xl>
     <v-layout row wrap justify-center class="my-0">
       <v-flex xs12 sm12 md9 lg9 xl9>
-        <div style="margin-left:3%; width:110%">
-          <v-card height="100%">
-            <v-card-title style="font-size: 16px">
-              Process
-              <v-spacer></v-spacer>
-              <v-text-field
-                v-model="search"
-                append-icon="search"
-                label="Search"
-                single-line
-                hide-details
-              ></v-text-field>
-            </v-card-title>
-            <v-data-table
-              :headers="headers"
-              :items="list_process"
-              :search="search"
-              :pagination.sync="pagination"
-            >
-              <template v-slot:items="props">
-                <!-- <td><span class="v-stepper__step__step success"><i class="material-icons"></i></span></td> -->
-                <td style="font-size: 15px">{{ props.item.process_name }}</td>
-                <!-- <td>{{ props.item.channel_name }}</td> -->
-                <td style="font-size: 15px">
-                  <div v-if="props.item.process_status === 1">
-                    <v-chip color="primary" text-color="white" style="font-size: 15px">Running</v-chip>
-                  </div>
-                  <div v-if="props.item.process_status === 2">
-                    <v-chip color="grey" text-color="white" style="font-size: 15px">Stopped</v-chip>
-                  </div>
-                  <div v-if="props.item.process_status === 0">
-                    <v-chip color="success" text-color="white" style="font-size: 15px">Init</v-chip>
-                  </div>
-                  <div v-if="props.item.process_status === 3">
-                    <v-chip color="error" text-color="white" style="font-size: 15px">Error</v-chip>
-                  </div>
-                </td>
-                <td>
-                  <div v-if="props.item.process_status !== 1 & props.item.process_status !== 3">
-                    <v-btn @click="start_process(props.item.process_id)" color="success">Start</v-btn>
-                  </div>
-                  <div v-if="props.item.process_status === 3">
-                    <v-btn @click="start_process_error(props.item)" color="error">Start</v-btn>
-                  </div>
-                  <div v-if="props.item.process_status === 1">
-                    <v-btn @click="stop_process(props.item.process_id)" color="warning">Stop</v-btn>
-                  </div>
-                </td>
+        <v-card height="100%">
+          <v-card-title style="font-size: 16px">
+            Process
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="list_process"
+            :search="search"
+            :pagination.sync="pagination"
+          >
+            <template v-slot:items="props">
+              <!-- <td><span class="v-stepper__step__step success"><i class="material-icons"></i></span></td> -->
+              <td style="font-size: 15px">{{ props.item.process_name }}</td>
+              <!-- <td>{{ props.item.channel_name }}</td> -->
+              <td style="font-size: 15px">
+                <div v-if="props.item.process_status === 1">
+                  <v-chip color="primary" text-color="white" style="font-size: 15px">Running</v-chip>
+                </div>
+                <div v-if="props.item.process_status === 2">
+                  <v-chip color="grey" text-color="white" style="font-size: 15px">Stopped</v-chip>
+                </div>
+                <div v-if="props.item.process_status === 0">
+                  <v-chip color="success" text-color="white" style="font-size: 15px">Init</v-chip>
+                </div>
+                <div v-if="props.item.process_status === 3">
+                  <v-chip color="error" text-color="white" style="font-size: 15px">Error</v-chip>
+                </div>
+              </td>
+              <td>
+                <div v-if="props.item.process_status !== 1 & props.item.process_status !== 3">
+                  <v-btn @click="start_process(props.item.process_id)" color="success">Start</v-btn>
+                </div>
+                <div v-if="props.item.process_status === 3">
+                  <v-btn @click="start_process_error(props.item)" color="error">Start</v-btn>
+                </div>
+                <div v-if="props.item.process_status === 1">
+                  <v-btn @click="stop_process(props.item.process_id)" color="warning">Stop</v-btn>
+                </div>
+              </td>
 
-                <td class="text-xs-right">
-                  <v-icon small @click="view_info_process(props.item)">search</v-icon>&nbsp;
-                  <v-icon small @click="data_edit_process(props.item)">edit</v-icon>&nbsp;
-                  <v-icon small @click="delete_process(props.item)">delete</v-icon>
-                </td>
-              </template>
-            </v-data-table>
-            <div class="text-xs-right mr-4">
-              <Add_Process></Add_Process>
-            </div>
-          </v-card>
-        </div>
+              <td class="text-xs-right" style="width:200px;">
+                <v-icon small @click="view_info_process(props.item)">search</v-icon>&nbsp;
+                <v-icon small @click="data_edit_process(props.item)">edit</v-icon>&nbsp;
+                <v-icon small @click="delete_process(props.item)">delete</v-icon>
+              </td>
+            </template>
+          </v-data-table>
+          <div class="text-xs-right mr-4">
+            <Add_Process></Add_Process>
+          </div>
+        </v-card>
       </v-flex>
       <v-flex xs12 sm12 md3 lg3 xl3>
-        <div
-          class="v-card v-sheet theme--light"
-          style="margin-left:42% !important;margin-bottom:15%;height: 100%;width:95% "
-        >
+        <div class="v-card v-sheet theme--light" style="margin-top:2.9%;height: 800px; ">
           <v-layout row>
             <v-flex xs8 sm8 md8 lg8 xl8>
               <v-card-text style="font-size: 16px">Process Information</v-card-text>
@@ -237,7 +232,7 @@
         </v-card>
       </v-dialog>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 
 <script>

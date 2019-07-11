@@ -5,11 +5,11 @@
       <v-toolbar-title class="ml-0 pl-4">{{ $t(`dashboard.title`) }}</v-toolbar-title>
     </v-toolbar>
 
-    <div style="margin-top:2%;width:100%">
-      <v-flex xs12 sm10 offset-sm1>
+    <div style="margin-top:2%;width:115%">
+      <v-flex xs12 sm12 offset-sm1>
         <v-layout row wrap>
           <!-- cot 1 -->
-          <v-flex>
+          <v-flex xs12 sm3 lg3>
             <v-card xs12 md3 class="grow">
               <v-card-title primary-title>
                 <div>
@@ -71,7 +71,7 @@
             </v-card>
           </v-flex>
           <!-- cot 2 -->
-          <v-flex style="margin-left:30px">
+          <v-flex xs12 sm3 lg3 style="margin-left:30px">
             <v-card xs12 md3 class="grow">
               <v-card-title primary-title>
                 <div>
@@ -119,7 +119,7 @@
             </v-card>
           </v-flex>
           <!-- cot 3 -->
-          <v-flex style="margin-left:30px">
+          <v-flex xs12 sm3 lg3   style="margin-left:30px">
             <v-card xs12 md3 class="grow">
               <v-card-title primary-title>
                 <div>

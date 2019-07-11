@@ -4,7 +4,7 @@
       <main>
         <v-container fluid fill-height class="loginOverlay">
           <v-layout align-center justify-center mt-5>
-            <v-flex xs12 lg3 md5 sm6 elevation-1 mt-5>
+            <v-flex xs12 lg4 md5 sm7 elevation-1 mt-5>
               <v-toolbar class="pt-4 pb-2 blue darken-4">
                 <v-toolbar-title class="white--text pb-2">
                   <h2 class="text-xs-center ml-4">F.Cloud Console</h2>

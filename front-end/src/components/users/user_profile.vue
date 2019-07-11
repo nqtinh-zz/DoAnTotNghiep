@@ -6,7 +6,7 @@
 
         </div>
       </v-flex>
-      <v-flex xs12 sm12 md8 lg8 xl8>
+      <v-flex xs12 sm12 md8 lg9 xl8>
         <div class="v-card v-sheet theme--light" style="height: 100%;">
           <v-card-text style="font-size: 16px">{{$t(`profile.edit`) }}</v-card-text>
           

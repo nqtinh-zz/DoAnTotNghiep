@@ -1,11 +1,13 @@
 <template>
-  <div style="margin-top:2%;width:90%">
+  <v-container grid-list-xl>
     <v-layout row wrap justify-center class="my-0">
-      <v-flex xs12 sm12 md9 lg9 xl9>
-        <div style="margin-left:3%; width:110%">
+      <v-flex xs12 sm12 md9 lg8 xl8>
         <v-card height="100%">
           <v-card-title style="font-size: 16px">
             Res Camera
+            <v-btn @click="refresh_list_camera" flat icon color="indigo">
+              <v-icon>cached</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
@@ -281,7 +283,7 @@
                   >{{group.camera_group_name}}</v-chip>
                 </div>
               </tr>
-              <td>{{ props.item.stream_url }}</td>
+              <!-- <td>{{ props.item.stream_url }}</td> -->
               <td>
                 <span>
                   <v-switch
@@ -340,14 +342,13 @@
             </div>
           </div>
         </v-card>
-        </div>
       </v-flex>
       <!-- <v-flex xs12 sm12 md3 lg3 xl3>
          group camera asdfsa df
       </v-flex>-->
       <GroupCamera></GroupCamera>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -416,25 +417,25 @@ export default {
         {
           text: "Camera name",
           align: "left",
-          width: "250px",
+          width: "120px",
           value: "camera_name",
           sortable: false
         },
         { text: "Group", value: "people_group_code", sortable: false },
-        {
-          text: "Stream url",
-          value: "stream_url",
-          sortable: false,
-          width: "200px"
-        },
+        // {
+        //   text: "Stream url",
+        //   value: "stream_url",
+        //   sortable: false,
+        //   width: "50px"
+        // },
         {
           text: "Selection",
           value: "selection",
           sortable: false,
-          width: "100px"
+          width: "20px"
         },
-        { text: "Status", value: "status", sortable: false, width: "100px" },
-        { text: "Action", value: "action", sortable: false, width: "120px" }
+        { text: "Status", value: "status", sortable: false, width: "20px" },
+        { text: "Action", value: "action", sortable: false, width: "110px" }
       ]
       // desserts: []
     };
@@ -484,6 +485,19 @@ export default {
     ViewCamera
   },
   methods: {
+    refresh_list_camera() {
+      this.$store
+        .dispatch("get_all_camera", {
+          project_id: JSON.parse(localStorage.getItem("project_id"))
+        })
+        .then(resp => {
+          // this.desserts = [...resp.data.data];
+          console.log("get all camera: ", resp.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     cancel_selection() {
       // this.selection = true
       let data2 = {
@@ -523,7 +537,7 @@ export default {
           .catch(err => {
             console.log(err);
           });
-      }else{
+      } else {
         let data = this.camera_id_submit;
         this.$store
           .dispatch("start_camera", data)
@@ -603,9 +617,12 @@ export default {
         camera_id: item.camera_id,
         project_id: JSON.parse(localStorage.getItem("project_id"))
       };
-      this.$confirm("Are you sure you want to delete this camera? All processes involve with this camera will be deleted too! ", {
-        title: "Delete Camera"
-      }).then(res => {
+      this.$confirm(
+        "Are you sure you want to delete this camera? All processes involve with this camera will be deleted too! ",
+        {
+          title: "Delete Camera"
+        }
+      ).then(res => {
         if (res === true) {
           this.desserts.splice(index, 1) &&
             this.$store.dispatch("delete_camera", data).then(resp => {});

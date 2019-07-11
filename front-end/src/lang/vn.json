@@ -265,8 +265,8 @@
     "more": "xem thêm",
     "contact_us": "Liên hệ với chúng tôi",
     "intro_fsmart_door": "F.SmartDoor là một hệ thống hỗ trợ cho phép vào cửa dựa vào danh tính của nhân viên bằng công nghệ nhận diện khuôn mặt. Qua đó, nó có thể giúp việc chấm công, quản lý người ra vào cửa được thực hiện thuận tiện và dễ dàng",
-    "intro_f_escape": "F.Escape là hệ thống phát hiện và cảnh báo lửa sớm ở các tòa nhà cao tầng. Nó có thể thông báo đến người dùng về các tình huống khẩn cấp khi có cháy xảy ra, cũng như giám sát vị trí nạn nhân bên trong hỏa hoạn và cung cấp thông tin về hướng thoát hiểm trong tòa nhà. ",
-    "intro_people_couting": "F.Smart People Counting là một chương trình hỗ trợ người dùng đếm số lượng người từ dữ liệu của camera tương dựa vào hình dáng.Đầu vào của chương trình sẽ là dữ liệu video, và kết quả sẽ là các thông tin về người trong video, cùng với số lượng người trong video đó. "
+    "intro_f_escape": "F.Escape là hệ thống phát hiện và cảnh báo lửa sớm ở các tòa nhà cao tầng. Nó có thể thông báo đến người dùng về các tình huống khẩn cấp khi có cháy xảy ra, cũng như giám sát vị trí nạn nhân bên trong hỏa hoạn và cung cấp thông tin về hướng thoát hiểm trong tòa nhà ",
+    "intro_people_couting": "F.Smart People Counting là một chương trình hỗ trợ người dùng đếm số lượng người từ dữ liệu của camera tương dựa vào hình dáng.Đầu vào của chương trình sẽ là dữ liệu video, và kết quả sẽ là các thông tin về người trong video, cùng với số lượng người trong video đó "
   },
   "function": {
     "buy_now": "Mua ngay",

@@ -41,7 +41,7 @@ const actions = {
             listGroup.push(data_temp)
           }
           commit('get_all_group', listGroup)
-          // resolve(resp)
+          resolve(resp)
         })
         .catch(err => {
           
@@ -204,6 +204,7 @@ const actions = {
           }
           console.log("mang process of camera", arr_list_process)
           commit("get_list_process_success", arr_list_process)
+          resolve(resp)
         })
         .catch(err => {
           
@@ -224,6 +225,7 @@ const actions = {
         })
         .then(resp => {
           console.log("data add process': ", resp)
+          resolve(resp)
         })
         .catch(err => {
           
@@ -251,6 +253,7 @@ const actions = {
               state.list_process[i].process_status=resp.data.data.process_status
             }
           }
+          resolve(resp)
         })
         .catch(err => {
           
@@ -278,6 +281,7 @@ const actions = {
               state.list_process[i].process_status=resp.data.data.process_status
             }
           }
+          resolve(resp)
         })
         .catch(err => {
           

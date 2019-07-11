@@ -97,9 +97,9 @@ const actions = {
               },
               method: 'GET'
             })
-            .then(resp => {
-              commit('get_all_people_group', resp.data.data)
-              resolve(resp)
+            .then(resp2 => {
+              commit('get_all_people_group', resp2.data.data)
+              resolve(resp2)
             })
             .catch(err => {
               console.log(err)
@@ -151,9 +151,9 @@ const actions = {
               },
               method: 'GET'
             })
-            .then(resp => {
-              commit('get_all_people_group', resp.data.data)
-              resolve(resp)
+            .then(resp2 => {
+              commit('get_all_people_group', resp2.data.data)
+              resolve(resp2)
             })
             .catch(err => {
               console.log(err)
@@ -185,7 +185,7 @@ const actions = {
             })
             .then(resp2 => {
               commit('get_all_people_group', resp2.data.data)
-              
+              resolve(resp2)
             })
             .catch(err => {
               console.log(err)

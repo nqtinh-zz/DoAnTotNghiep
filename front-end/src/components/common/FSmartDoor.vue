@@ -45,8 +45,13 @@
 
     <section class="feature-area area-padding bg_one">
       <div class="container">
-        <div class="row align-items-center">
-          <div class="offset-lg-6 col-lg-6">
+        <div class="row ">
+          <div class="col-lg-5">
+            <div class="image-box">
+              <img src="./favison/img/banner/FSmartDoor_OpStep_FaceRegistration.png" alt>
+            </div>
+          </div>
+          <div class="offset-lg-1 col-lg-6">
             <div class="area-heading light">
               <h4>
                 Mục đích
@@ -152,11 +157,11 @@ export default {
 .about-area:after{
   background-image: url(./favison/img/banner/FSmartDoor_OpStep_FaceRecognition.png) !important;
 }
-.feature-area:after{
-  background-image: url(./favison/img/banner/FSmartDoor_OpStep_FaceRegistration.png) !important;
-  width: 50%;
-  height:100%;
-}
+// .feature-area:after{
+//   background-image: url(./favison/img/banner/FSmartDoor_OpStep_FaceRegistration.png) !important;
+//   width: 100%;
+//   height:100%;
+// }
 .area-heading h4 {
     font-family: inherit !important;
 }
